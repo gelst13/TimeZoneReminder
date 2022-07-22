@@ -116,7 +116,11 @@ class InfoBase:
         else:
             full_path = os.path.join(path, folder).strip() + '/'
         if not os.access(full_path, os.F_OK):
-            os.mkdir(full_path)
+            try:
+                os.mkdir(full_path)
+            except OSError:
+                print(f'Cannot create {full_path} so let`s use {os.getcwd()}.')
+                return os.getcwd()
         return full_path
 
     @staticmethod
@@ -132,10 +136,15 @@ class InfoBase:
             out_file.write('contact_name,platform,comment,location,zone_name,utc_offset\n')
             for row in sorted(data):
                 out_file.write(';'.join(list(map(str, row))) + '\n')
-        shutil.copy(file_name, dst_folder)
-        if 'tzr_contacts.csv' in os.listdir(dst_folder):
-            print(f'{file_name} is successfully saved to {dst_folder}.')
-            os.remove(file_name)
+        try:
+            shutil.copy(file_name, dst_folder)
+            if 'tzr_contacts.csv' in os.listdir(dst_folder):
+                print(f'{file_name} is successfully saved to {dst_folder}.')
+                os.remove(file_name)
+        except Exception as e:
+            logging.debug(e)
+            # if 'tzr_contacts.csv' in os.getcwd(): # the current working directory
+            print(f'Cannot save file to {dst_folder} so {file_name} is successfully saved to {os.getcwd()}')
 
 
 class TimeKeeper:
