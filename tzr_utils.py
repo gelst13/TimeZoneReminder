@@ -200,11 +200,30 @@ class TimeKeeper:
                 print(f'there are no {zone_info} time zone in my database. Try again with offset to UTC')
 
     @staticmethod
-    def convert_time(tz_from, tz_to, time_: str):
+    def define_tzfrom_tzto_time():
+        """Supporting method for def convert_time()"""
+        tz_from, tz_to = None, None
+        from_local = input('convert local time? y/n ')
+        if from_local.lower() == 'y':
+            tz_from = float(datetime.datetime.now().astimezone().strftime('%z')) / 100  # get local offset
+            tz_to = input('Enter the destination time zone: name or offset to UTC/GMT:> ')
+        elif from_local.lower() != 'n':
+            print('Wrong command!')
+            TimeKeeper.define_tzfrom_tzto_time()
+        else:
+            tz_from = input('Enter the original time zone: name or offset to UTC/GMT:> ')
+            tz_to = tz.tzlocal()  # get local tz from PC
+        _time = input('Enter time in format 00:00:> ')
+        return tz_from, tz_to, _time
+
+    @staticmethod
+    def convert_time():
         """tz_from: float  or str
         tz_to: float or str or <class dateutil.tz.tzlocal>
         Print result of converting time
         """
+        time_params = TimeKeeper.define_tzfrom_tzto_time()
+        tz_from, tz_to, time_ = time_params[0], time_params[1], time_params[2]
         logging.info('***def convert_time')
         logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
         time0 = list(map(int, time_.split(':')))
@@ -233,5 +252,5 @@ class TimeKeeper:
                   f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] {tz_to} time zone.")
         else:  # to local
             dt_converted = dt_utc.astimezone(tz_to)
-            print(f"[{dt.strftime('%H:%M %d-%m-%Y')} {tz_from}] time zone = "
+            print(f"[{dt.strftime('%H:%M %d-%m-%Y')}] {tz_from} time zone = "
                   f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] your local time.")

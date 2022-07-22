@@ -66,19 +66,7 @@ b-go back
                 if time_now:
                     print(f"current time in {tz_data} time zone: {time_now}")
             elif self.user_input == '2':
-                from_local = input('convert local time? y/n ')
-                if from_local.lower() == 'y':
-                    tz_from = float(datetime.datetime.now().astimezone().strftime('%z')) / 100  # get local offset
-                    tz_to = input('Enter the destination time zone: name or offset to UTC/GMT:> ')
-                elif from_local.lower() != 'n':
-                    print('Wrong command!')
-                    self.time_operation()
-                else:
-                    tz_from = input('Enter the original time zone: name or offset to UTC/GMT:> ')
-                    tz_to = tz.tzlocal()  # get local tz from PC
-
-                _time = input('Enter time in format 00:00:> ')
-                TimeKeeper.convert_time(tz_from, tz_to, _time)
+                TimeKeeper.convert_time()
 
     @staticmethod
     def display_contact_current_time(contact_data):
@@ -120,7 +108,6 @@ b-go back
             else:
                 print(data[0])
                 ContactsKeeper.display_contact_current_time(data[0])
-
 
     def add_contact(self):
         # contact = [ contact_name / platform / comment / location / zone_name / utc_offset ]
@@ -173,27 +160,26 @@ b-go back
                 4 - zone name
                 5 - difference to UTC
                 s - save changes''')
-                self.user_input = input()
+                self.user_input = input()  # field number or command to save
                 try:
                     if self.user_input == 's':
                         InfoBase.delete_row(contact_to_change)
                         InfoBase.transfer_to_sql(*new_record)
                         print('saved')
                         break
-                    print(record_to_change[0][int(self.user_input)])
+                    print(f'Current: {record_to_change[0][int(self.user_input)]}')
                     new_value = input('Change to:> ')
-                    print(new_record)
+                    # print(new_record)
                     if self.user_input == '5':  # difference to UTC keep as float
                         new_record[int(self.user_input)] = float(new_value)
                     elif self.user_input == '4':  # zone name
                         new_record[int(self.user_input)] = new_value.upper()
                     else:
                         new_record[int(self.user_input)] = new_value.capitalize()
-                    print(new_record)
+                    # print(new_record)
                 except ValueError:
                     print('wrong command')
-                    continue3
-
+                    continue
 
     actions = {'0': time_operation,
                '1': add_contact,
