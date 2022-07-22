@@ -9,15 +9,15 @@ command-line script that allows you to:
 
 ----
 menu:
-00.time operation:
+0.time operation:
 - calculate time
 - convert time
 - show current time for a time zone
-11.add contact
-22.see contact info and current time for him/her
-33.change existing contact(delete, rename or change some info in Contact' record)
-44. export Contacts' Book (as .csv - file)
-55. exit
+1.add contact
+2.see contact info and current time for him/her
+3.change existing contact(delete, rename or change some info in Contact' record)
+4. export Contacts' Book (as .csv - file)
+5. exit
 ----
 * user can type contact_names/platform in any registry, but the program capitalize them
 
