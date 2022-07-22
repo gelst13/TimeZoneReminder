@@ -80,6 +80,15 @@ b-go back
                 _time = input('Enter time in format 00:00:> ')
                 TimeKeeper.convert_time(tz_from, tz_to, _time)
 
+    @staticmethod
+    def display_contact_current_time(contact_data):
+        if contact_data[4]:
+            contact_time_now = TimeKeeper.show_current_time(contact_data[4])
+        else:
+            contact_time_now = TimeKeeper.show_current_time(contact_data[5])
+        if contact_time_now:
+            print(f'time for {contact_data[0].capitalize()} now: {contact_time_now}')
+
     def see_info(self):
         logging.info('***def see_info')
         self.call += 0
@@ -105,17 +114,13 @@ b-go back
             data = InfoBase.select_row('contact_name', data_for_search.capitalize())
             # [('Bo', 'Discord', 'Bocanada Hyperskill', 'Seul', 'JST', 9.0)]
             if data == list():
-                logging.debug(data == list())
+                logging.debug(f'data == list(): {data == list()}')
                 print('no such entries')
                 self.start()
             else:
                 print(data[0])
-                if data[0][4]:
-                    contact_time_now = TimeKeeper.show_current_time(data[0][4])
-                else:
-                    contact_time_now = TimeKeeper.show_current_time(data[0][5])
-                if contact_time_now:
-                    print(f'time for {data_for_search.capitalize()} now: {contact_time_now}')
+                ContactsKeeper.display_contact_current_time(data[0])
+
 
     def add_contact(self):
         # contact = [ contact_name / platform / comment / location / zone_name / utc_offset ]
