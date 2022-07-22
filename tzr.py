@@ -38,22 +38,21 @@ logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
 class ContactsKeeper:
     def __init__(self):
         self.new_contact = ''
-        self.command = ''
+        self.user_input = ''
         self.call = 0
 
     def time_operation(self):
-        self.call += 0
         while True:
             print('''\nAvailable time operations:
 0-display the time that will come after a certain time period
 1-display current time in another time zone
 2-convert time(local time to some other time zone or vice versa)
-bbb - go back
+b-go back
 ''')
-            operation = input()
-            if operation == 'bbb':
+            self.user_input = input()
+            if self.user_input == 'b':
                 self.start()
-            if operation == '0':
+            if self.user_input == '0':
                 time_period = list()
                 time_period.append(int(input('enter how many hours forward (00-24):> ')))
                 time_period.append(int(input('enter how many minutes forward (00-59):> ')))
@@ -61,12 +60,12 @@ bbb - go back
                 print(f"In {time_period[0]} hours {time_period[1]} minutes it'll be:")
                 print(TimeKeeper.calculate_time(current_local_time, time_period))
                 self.time_operation()
-            if operation == '1':
+            if self.user_input == '1':
                 tz_data = input('Enter the name of time zone or offset (hours of time difference) to UTC/GMT:> ')
                 time_now = TimeKeeper.show_current_time(tz_data)
                 if time_now:
                     print(f"current time in {tz_data} time zone: {time_now}")
-            elif operation == '2':
+            elif self.user_input == '2':
                 from_local = input('convert local time? y/n ')
                 if from_local.lower() == 'y':
                     tz_from = float(datetime.datetime.now().astimezone().strftime('%z')) / 100  # get local offset
@@ -80,9 +79,6 @@ bbb - go back
 
                 _time = input('Enter time in format 00:00:> ')
                 TimeKeeper.convert_time(tz_from, tz_to, _time)
-            elif operation == '3':
-                your_friend_time = input('Enter time from another time zone in format 00:00:> ')
-                print(f'{your_friend_time} of {tz} time zone corresponds to ... your local time')
 
     def see_info(self):
         logging.info('***def see_info')
@@ -152,17 +148,17 @@ bbb - go back
         contact_to_change = input('\nEnter contact name/nick to be changed:> ').capitalize()
         if contact_to_change not in InfoBase.select_column('contact_name'):
             print('error: no such contact')
-            self.change_contact()
+            self.start()
         record_to_change = InfoBase.select_row('contact_name', contact_to_change)
         print(record_to_change)
         new_record = [x for x in record_to_change[0]]
-        change = input('\nchoose action:\ndel - delete contact\nccc - change contact\nbbb - go back\n> ')
-        if change == 'bbb':
+        operation = input('\nchoose action:\nd - delete contact\nc - change contact\nb - go back\n> ')
+        if operation == 'b':
             self.start()
-        elif change == 'del':
+        elif operation == 'd':
             InfoBase.delete_row(contact_to_change)
             print('Contact deleted')
-        elif change == 'ccc':
+        elif operation == 'c':
             while True:
                 print('''What field do you wish to change:
                 0 - contact name
@@ -171,32 +167,33 @@ bbb - go back
                 3 - location
                 4 - zone name
                 5 - difference to UTC
-                sss - save changes''')
-                field_no = input()
+                s - save changes''')
+                self.user_input = input()
                 try:
-                    if field_no == 'sss':
+                    if self.user_input == 's':
                         InfoBase.delete_row(contact_to_change)
                         InfoBase.transfer_to_sql(*new_record)
                         print('saved')
                         break
-                    print(record_to_change[0][int(field_no)])
+                    print(record_to_change[0][int(self.user_input)])
                     new_value = input('Change to:> ')
                     print(new_record)
-                    if field_no == '5':  # difference to UTC keep as float
-                        new_record[int(field_no)] = float(new_value)
-                    elif field_no == '4':  # zone name
-                        new_record[int(field_no)] = new_value.upper()
+                    if self.user_input == '5':  # difference to UTC keep as float
+                        new_record[int(self.user_input)] = float(new_value)
+                    elif self.user_input == '4':  # zone name
+                        new_record[int(self.user_input)] = new_value.upper()
                     else:
-                        new_record[int(field_no)] = new_value.capitalize()
+                        new_record[int(self.user_input)] = new_value.capitalize()
                     print(new_record)
                 except ValueError:
                     print('wrong command')
-                    continue
+                    continue3
 
-    actions = {'00': time_operation,
-               '11': add_contact,
-               '22': see_info,
-               '33': change_contact,
+
+    actions = {'0': time_operation,
+               '1': add_contact,
+               '2': see_info,
+               '3': change_contact,
                }
 
     @staticmethod
@@ -208,19 +205,19 @@ bbb - go back
         sql_operation.create_table()
         print('Contact base is empty' if self.check_if_db_empty() == 0 else '')
         while True:
-            print('\nchoose action:\n00.time operation\n11.add contact\n22.see contact info'
-                  '\n33.change contact\n44.export contacts\n55.exit')
-            self.command = input('> ')
-            if self.command == '55':
+            print('\nchoose action:\n0.time operation\n1.add contact\n2.see contact info'
+                  '\n3.change contact\n4.export contacts\n5.exit')
+            self.user_input = input('> ')
+            if self.user_input == '5':
                 exit()
-            elif self.command == '000':
+            elif self.user_input == '000':
                 sql_operation.print_contact_table()
-            elif self.command == '44':
+            elif self.user_input == '4':
                 InfoBase.export_contact_book()
-            elif self.command not in list(ContactsKeeper.actions.keys()):
+            elif self.user_input not in list(ContactsKeeper.actions.keys()):
                 print('Incorrect command. Enter 00, 11, 22, 33 or 44')
             else:
-                ContactsKeeper.actions[self.command.lower()](self)
+                ContactsKeeper.actions[self.user_input](self)
 
 
 def main():
