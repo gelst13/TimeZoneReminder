@@ -62,7 +62,7 @@ b-go back
                 self.time_operation()
             if self.user_input == '1':
                 tz_data = input('Enter the name of time zone or offset (hours of time difference) to UTC/GMT:> ')
-                time_now = TimeKeeper.show_current_time(tz_data)
+                time_now = TimeKeeper.get_current_time(tz_data)
                 if time_now:
                     print(f"current time in {tz_data} time zone: {time_now}")
             elif self.user_input == '2':
@@ -71,9 +71,9 @@ b-go back
     @staticmethod
     def display_contact_current_time(contact_data):
         if contact_data[4]:
-            contact_time_now = TimeKeeper.show_current_time(contact_data[4])
+            contact_time_now = TimeKeeper.get_current_time(contact_data[4])
         else:
-            contact_time_now = TimeKeeper.show_current_time(contact_data[5])
+            contact_time_now = TimeKeeper.get_current_time(contact_data[5])
         if contact_time_now:
             print(f'time for {contact_data[0].capitalize()} now: {contact_time_now}')
 
