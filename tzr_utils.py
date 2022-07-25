@@ -124,18 +124,23 @@ class InfoBase:
         return full_path
 
     @staticmethod
-    def export_contact_book():
+    def create_csv_from_sql():
         """Write .csv-file with data from tzrContactBook.db inside working directory;
-        Get path for saving exported data and copy original .csv-file there;
-        Check if export file exists in designated location; Remove original .csv-file"""
+        Supporting method for def export_contact_book()"""
         data = InfoBase.select_all()
-        dst_folder = InfoBase.specify_destination()
         file_name = 'tzr_contacts.csv'
         with open(file_name, 'w', encoding='utf-8') as out_file:
             out_file.write("Time Zone Reminder / Contacts' Book\n")
             out_file.write('contact_name,platform,comment,location,zone_name,utc_offset\n')
             for row in sorted(data):
                 out_file.write(';'.join(list(map(str, row))) + '\n')
+
+    @staticmethod
+    def export_contact_book():
+        """Get path for saving exported data and copy original .csv-file there;
+        Check if export file exists in designated location; Remove original .csv-file"""
+        create_csv_from_sql()
+        dst_folder = InfoBase.specify_destination()
         try:
             shutil.copy(file_name, dst_folder)
             if 'tzr_contacts.csv' in os.listdir(dst_folder):
@@ -143,7 +148,6 @@ class InfoBase:
                 os.remove(file_name)
         except Exception as e:
             logging.debug(e)
-            # if 'tzr_contacts.csv' in os.getcwd(): # the current working directory
             print(f'Cannot save file to {dst_folder} so {file_name} is successfully saved to {os.getcwd()}')
 
 
