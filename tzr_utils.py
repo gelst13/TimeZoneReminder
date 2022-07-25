@@ -178,9 +178,9 @@ class TimeKeeper:
         return str(time2)[:5]
 
     @staticmethod
-    def show_current_time(tz_data) -> str:
+    def get_current_time(tz_data) -> str:
         """convert current local time into another time zone"""
-        logging.info('***def show_current_time(tz_data)')
+        logging.info('***def get_current_time(tz_data)')
         logging.debug(f'tz_data={tz_data}')
         try:
             offset = datetime.timedelta(hours=float(tz_data))
