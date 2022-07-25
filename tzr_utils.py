@@ -233,7 +233,7 @@ class TimeKeeper:
     def convert_time():
         """tz_from: float  or str
         tz_to: float or str or <class dateutil.tz.tzlocal>
-        Print result of converting time
+        Convert time and print result
         """
         time_params = TimeKeeper.define_tzfrom_tzto_time()
         tz_from, tz_to, time_ = time_params[0], time_params[1], time_params[2]
