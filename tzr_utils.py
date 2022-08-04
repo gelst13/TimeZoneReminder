@@ -171,10 +171,12 @@ class TimeKeeper:
     def calculate_time(time_obj, time_interval: list) -> str:
         """ how much time will it be in ..2 hours?
         """
+        logging.info(f'***def calculate_time({time.strftime("%H:%M", time_obj)}, {time_interval})')
         time0 = list(map(int, time.strftime("%H:%M", time_obj).split(':')))
         hours, minutes = time0[0], time0[1]
         hours2, minutes2 = hours + time_interval[0], minutes + time_interval[1]
         time2 = datetime.timedelta(hours=hours2, minutes=minutes2)
+        logging.debug(str(time2)[:5])
         return str(time2)[:5]
 
     @staticmethod
