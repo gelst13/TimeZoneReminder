@@ -196,6 +196,7 @@ class TimeKeeper:
     @staticmethod
     def date_constructor(zone_info, date: list, time0: list):
         """Return time zone-aware object"""
+        logging.info(f'***def date_constructor({zone_info}, {date}, {time0})')
         if isinstance(zone_info, float):
             # time from local time zone
             return datetime.datetime(date[0], date[1], date[2], time0[0], time0[1], 0,
@@ -235,35 +236,42 @@ class TimeKeeper:
         tz_to: float or str or <class dateutil.tz.tzlocal>
         Convert time and print result
         """
+        logging.info('***def convert_time')
         time_params = TimeKeeper.define_tzfrom_tzto_time()
         tz_from, tz_to, time_ = time_params[0], time_params[1], time_params[2]
-        logging.info('***def convert_time')
         logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
         time0 = list(map(int, time_.split(':')))
-        date = list(map(int, datetime.datetime.now().strftime('%Y-%m-%d').split('-')))  # [2022, 6, 29]
-        dt = TimeKeeper.date_constructor(tz_from, date, time0)
-        logging.debug(f'datetime aware constructed: {dt}')
-        if not dt:
-            return False
-        dt_utc = dt.astimezone(pytz.utc)
-        logging.debug(f' UTC {dt_utc}')
-        if isinstance(tz_from, float):  # i.d. from local time
-            try:  # if user provided offset
-                hours = int(str(float(tz_to)).split('.')[0])
-                minutes = int(str(float(tz_to)).split('.')[1])
-                offset_ = datetime.timedelta(hours=hours, minutes=minutes)
-                tz_from_offset = datetime.timezone(offset_, name='UNKNOWN')
-                dt_converted = dt_utc.astimezone(tz=tz_from_offset)
-            except ValueError:  # if user entered valid zone name
-                if tz_to.upper() in list(TimeKeeper.tz_olson.keys()):
-                    tz_pytz = pytz.timezone(TimeKeeper.tz_olson[tz_to.upper()])
-                    dt_converted = dt_utc.astimezone(tz_pytz)
-                else:
-                    print(f'there are no {tz_to.upper()} time zone in my database. Try again with offset to UTC')
-                    return False
-            print(f" [{dt.strftime('%H:%M %d-%m-%Y')}] your local time = "
-                  f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] {tz_to} time zone.")
-        else:  # to local
-            dt_converted = dt_utc.astimezone(tz_to)
-            print(f"[{dt.strftime('%H:%M %d-%m-%Y')}] {tz_from} time zone = "
-                  f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] your local time.")
+        logging.debug(f'time0: {time0}')
+        logging.debug(0 <= time0[0] <= 23 and 0 <= time0[1] <= 59)
+        if not (0 <= time0[0] <= 23 and 0 <= time0[1] <= 59):
+            print('ValueError: hour must be in 0..23 and minute must be in 0..59')
+            TimeKeeper.convert_time()
+        else:
+            date = list(map(int, datetime.datetime.now().strftime('%Y-%m-%d').split('-')))  # [2022, 6, 29]
+            logging.debug(date)
+            dt = TimeKeeper.date_constructor(tz_from, date, time0)
+            logging.debug(f'datetime aware constructed: {dt}')
+            if not dt:
+                return False
+            dt_utc = dt.astimezone(pytz.utc)
+            logging.debug(f' UTC {dt_utc}')
+            if isinstance(tz_from, float):  # i.d. from local time
+                try:  # if user provided offset
+                    hours = int(str(float(tz_to)).split('.')[0])
+                    minutes = int(str(float(tz_to)).split('.')[1])
+                    offset_ = datetime.timedelta(hours=hours, minutes=minutes)
+                    tz_from_offset = datetime.timezone(offset_, name='UNKNOWN')
+                    dt_converted = dt_utc.astimezone(tz=tz_from_offset)
+                except ValueError:  # if user entered valid zone name
+                    if tz_to.upper() in list(TimeKeeper.tz_olson.keys()):
+                        tz_pytz = pytz.timezone(TimeKeeper.tz_olson[tz_to.upper()])
+                        dt_converted = dt_utc.astimezone(tz_pytz)
+                    else:
+                        print(f'there are no {tz_to.upper()} time zone in my database. Try again with offset to UTC')
+                        return False
+                print(f" [{dt.strftime('%H:%M %d-%m-%Y')}] your local time = "
+                      f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] {tz_to} time zone.")
+            else:  # to local
+                dt_converted = dt_utc.astimezone(tz_to)
+                print(f"[{dt.strftime('%H:%M %d-%m-%Y')}] {tz_from} time zone = "
+                      f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] your local time.")
