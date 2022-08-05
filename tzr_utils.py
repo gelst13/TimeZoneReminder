@@ -226,7 +226,10 @@ class TimeKeeper:
 
     @staticmethod
     def define_tzfrom_tzto_time():
-        """Supporting method for def convert_time()"""
+        """Supporting method for def convert_time()
+        Return tz_from: float  or str,
+        tz_to: float or str or <class dateutil.tz.tzlocal>,
+        _time: str"""
         tz_from, tz_to = None, None
         from_local = input('convert local time? y/n ')
         if from_local.lower() == 'y':
@@ -243,10 +246,7 @@ class TimeKeeper:
 
     @timer
     def convert_time(self):
-        """tz_from: float  or str
-        tz_to: float or str or <class dateutil.tz.tzlocal>
-        Convert time and print result
-        """
+        """Convert time and print result"""
         logging.info('***def convert_time')
         self.call += 1
         time_params = TimeKeeper.define_tzfrom_tzto_time()
@@ -254,11 +254,10 @@ class TimeKeeper:
         logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
         time0 = list(map(int, time_.split(':')))
         logging.debug(f'time0: {time0}')
-        logging.debug(0 <= time0[0] <= 23 and 0 <= time0[1] <= 59)
-        if not (0 <= time0[0] <= 23 and 0 <= time0[1] <= 59):
-            print('ValueError: hour must be in 0..23 and minute must be in 0..59')
-            TimeKeeper.convert_time()
-        else:
+        try:
+            message = 'IncorrectInput: hour must be in 0..23 and minute must be in 0..59'
+            assert (0 <= time0[0] <= 23 and 0 <= time0[1] <= 59), message
+
             date = list(map(int, datetime.datetime.now().strftime('%Y-%m-%d').split('-')))  # [2022, 6, 29]
             logging.debug(date)
             dt = TimeKeeper.date_constructor(tz_from, date, time0)
@@ -287,3 +286,6 @@ class TimeKeeper:
                 dt_converted = dt_utc.astimezone(tz_to)
                 print(f"[{dt.strftime('%H:%M %d-%m-%Y')}] {tz_from} time zone = "
                       f"[{dt_converted.strftime('%H:%M %d-%m-%Y')}] your local time.")
+        except AssertionError as error:
+            print(error)
+            TimeKeeper.convert_time(self)
