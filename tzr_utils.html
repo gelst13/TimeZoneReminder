@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tzr_utils</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>tzr_utils</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5C%D1%82%D0%BE%D1%88%D0%B0%5Cpycharmprojects%5Ctimezonereminder%5Ctzr_utils.py">c:\users\тоша\pycharmprojects\timezonereminder\tzr_utils.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;utils&nbsp;for&nbsp;tzr.py&nbsp;($TimeZoneReminder)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+<a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pytz.html">pytz</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+<a href="sqlite3.html">sqlite3</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="dateutil.tz.tz.html">dateutil.tz.tz</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="tzr_utils.html#InfoBase">InfoBase</a>
+</font></dt><dt><font face="helvetica, arial"><a href="tzr_utils.html#TimeKeeper">TimeKeeper</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InfoBase">class <strong>InfoBase</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="InfoBase-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="InfoBase-create_csv_from_sql"><strong>create_csv_from_sql</strong></a>()</dt><dd><tt>Write&nbsp;.csv-file&nbsp;with&nbsp;data&nbsp;from&nbsp;tzrContactBook.db&nbsp;inside&nbsp;working&nbsp;directory;<br>
+Supporting&nbsp;method&nbsp;for&nbsp;def&nbsp;<a href="#InfoBase-export_contact_book">export_contact_book</a>()</tt></dd></dl>
+
+<dl><dt><a name="InfoBase-create_table"><strong>create_table</strong></a>()</dt></dl>
+
+<dl><dt><a name="InfoBase-delete_row"><strong>delete_row</strong></a>(key)</dt></dl>
+
+<dl><dt><a name="InfoBase-export_contact_book"><strong>export_contact_book</strong></a>()</dt><dd><tt>Get&nbsp;path&nbsp;for&nbsp;saving&nbsp;exported&nbsp;data&nbsp;and&nbsp;copy&nbsp;original&nbsp;.csv-file&nbsp;there;<br>
+Check&nbsp;if&nbsp;export&nbsp;file&nbsp;exists&nbsp;in&nbsp;designated&nbsp;location;&nbsp;Remove&nbsp;original&nbsp;.csv-file</tt></dd></dl>
+
+<dl><dt><a name="InfoBase-print_contact_table"><strong>print_contact_table</strong></a>()</dt><dd><tt>Available&nbsp;by&nbsp;entering&nbsp;secret&nbsp;command&nbsp;000&nbsp;in&nbsp;the&nbsp;main&nbsp;menu&nbsp;of&nbsp;TimeZoneReminder</tt></dd></dl>
+
+<dl><dt><a name="InfoBase-select_all"><strong>select_all</strong></a>()</dt></dl>
+
+<dl><dt><a name="InfoBase-select_column"><strong>select_column</strong></a>(column_name)</dt></dl>
+
+<dl><dt><a name="InfoBase-select_row"><strong>select_row</strong></a>(column: str, key_word) -&gt; []</dt><dd><tt>Filter&nbsp;contact&nbsp;table&nbsp;by&nbsp;1&nbsp;field:&nbsp;contact_name/platform/time_zone&nbsp;or&nbsp;utc_offset<br>
+Return&nbsp;selected&nbsp;rows&nbsp;as&nbsp;[(),&nbsp;(),&nbsp;..]</tt></dd></dl>
+
+<dl><dt><a name="InfoBase-specify_destination"><strong>specify_destination</strong></a>()</dt><dd><tt>Supporting&nbsp;method&nbsp;for&nbsp;def&nbsp;<a href="#InfoBase-export_contact_book">export_contact_book</a>()</tt></dd></dl>
+
+<dl><dt><a name="InfoBase-transfer_to_sql"><strong>transfer_to_sql</strong></a>(contact_name, platform, comment, location, zone_name, utc_offset)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TimeKeeper">class <strong>TimeKeeper</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TimeKeeper-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TimeKeeper-convert_time"><strong>convert_time</strong></a> = wrapper(func_argument)</dt></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="TimeKeeper-calculate_time"><strong>calculate_time</strong></a>(time_obj, time_interval: list) -&gt; str</dt><dd><tt>how&nbsp;much&nbsp;time&nbsp;will&nbsp;it&nbsp;be&nbsp;in&nbsp;..2&nbsp;hours?</tt></dd></dl>
+
+<dl><dt><a name="TimeKeeper-date_constructor"><strong>date_constructor</strong></a>(zone_info, date: list, time0: list)</dt><dd><tt>Return&nbsp;time&nbsp;zone-aware&nbsp;<a href="builtins.html#object">object</a></tt></dd></dl>
+
+<dl><dt><a name="TimeKeeper-define_tzfrom_tzto_time"><strong>define_tzfrom_tzto_time</strong></a>()</dt><dd><tt>Supporting&nbsp;method&nbsp;for&nbsp;def&nbsp;<a href="#TimeKeeper-convert_time">convert_time</a>()<br>
+Return&nbsp;tz_from:&nbsp;float&nbsp;&nbsp;or&nbsp;str,<br>
+tz_to:&nbsp;float&nbsp;or&nbsp;str&nbsp;or&nbsp;&lt;class&nbsp;dateutil.tz.tzlocal&gt;,<br>
+_time:&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="TimeKeeper-get_current_time"><strong>get_current_time</strong></a>(tz_data) -&gt; str</dt><dd><tt>convert&nbsp;current&nbsp;local&nbsp;time&nbsp;into&nbsp;another&nbsp;time&nbsp;zone</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>tz_olson</strong> = {'ART': 'America/Argentina/Buenos_Aires', 'CST': 'US/Central', 'EST': 'US/Eastern', 'IST': 'Asia/Kolkata', 'JST': 'Asia/Tokyo', 'MSK': 'Europe/Moscow', 'PST': 'US/Pacific', 'TURKEY': 'Europe/Istanbul', 'UTC': 'Etc/UTC'}</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-timer"><strong>timer</strong></a>(func)</dt></dl>
+</td></tr></table>
+</body></html>
