@@ -1,7 +1,7 @@
 # $TimeZoneReminder
 """
 DESCRIPTION:
-command-line script that allows you to:
+TimeZoneReminder app - command-line script that allows you to:
 - keep info about your contacts' time zones
 - display: "what time is it now at smbd's place?"
             [my current local time] and [contact's current time]
