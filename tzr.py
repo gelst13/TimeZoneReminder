@@ -66,7 +66,7 @@ b-go back
                 if time_now:
                     print(f"current time in {tz_data} time zone: {time_now}")
             elif self.user_input == '2':
-                TimeKeeper.convert_time()
+                TimeKeeper.convert_time(self)
 
     @staticmethod
     def display_contact_current_time(contact_data):

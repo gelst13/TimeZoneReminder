@@ -151,6 +151,15 @@ class InfoBase:
             print(f'Cannot save file to {dst_folder} so {file_name} is successfully saved to {os.getcwd()}')
 
 
+def timer(func):
+    def wrapper(func_argument):
+        start = time.time()
+        func(func_argument)
+        end = time.time()
+        logging.info('def convert_time() ran ' + str(end - start) + ' seconds')
+    return wrapper
+
+
 class TimeKeeper:
     def __init__(self):
         self.command = ''
@@ -232,13 +241,14 @@ class TimeKeeper:
         _time = input('Enter time in format 00:00:> ')
         return tz_from, tz_to, _time
 
-    @staticmethod
-    def convert_time():
+    @timer
+    def convert_time(self):
         """tz_from: float  or str
         tz_to: float or str or <class dateutil.tz.tzlocal>
         Convert time and print result
         """
         logging.info('***def convert_time')
+        self.call += 1
         time_params = TimeKeeper.define_tzfrom_tzto_time()
         tz_from, tz_to, time_ = time_params[0], time_params[1], time_params[2]
         logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
