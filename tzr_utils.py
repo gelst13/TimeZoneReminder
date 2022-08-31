@@ -9,6 +9,7 @@ import shutil
 import sqlite3
 import time
 from dateutil.tz import tzoffset, tzlocal, tz
+from pprint import pprint
 
 
 logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
@@ -18,6 +19,12 @@ logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
 class InfoBase:
     def __init__(self):
         self.n = 0
+
+    def __repr__(self):
+        return f'tzrContactBook.db/contact table contains {len(InfoBase.select_all())} entries'
+
+    def __str__(self):
+        return f'You have {len(InfoBase.select_all())} entries saved in your Contact base'
 
     @staticmethod
     def create_table():
@@ -175,6 +182,12 @@ class TimeKeeper:
                 'PST': 'US/Pacific',
                 'TURKEY': 'Europe/Istanbul'
                 }
+
+    def __repr__(self):
+        return 'TZR app recognizes following short names for time zones:'
+
+    def __str__(self):
+        return TimeKeeper.tz_olson
 
     @staticmethod
     def calculate_time(time_obj, time_interval: list) -> str:

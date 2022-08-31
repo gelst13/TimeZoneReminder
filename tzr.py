@@ -27,6 +27,7 @@ import logging
 import re
 import time
 from dateutil.tz import tzoffset, tzlocal, tz
+from pprint import pprint
 from tzr_utils import InfoBase
 from tzr_utils import TimeKeeper
 
@@ -62,7 +63,7 @@ b-go back
                 self.time_operation()
             if self.user_input == '1':
                 tz_data = input('Enter the name of time zone or offset (hours of time difference) to UTC/GMT:> ')
-                time_now = TimeKeeper.get_current_time(tz_data)
+                time_now = TimeKeeper().get_current_time(tz_data)
                 if time_now:
                     print(f"current time in {tz_data} time zone: {time_now}")
             elif self.user_input == '2':
@@ -71,9 +72,9 @@ b-go back
     @staticmethod
     def display_contact_current_time(contact_data):
         if contact_data[4]:
-            contact_time_now = TimeKeeper.get_current_time(contact_data[4])
+            contact_time_now = TimeKeeper().get_current_time(contact_data[4])
         else:
-            contact_time_now = TimeKeeper.get_current_time(contact_data[5])
+            contact_time_now = TimeKeeper().get_current_time(contact_data[5])
         if contact_time_now:
             print(f'time for {contact_data[0].capitalize()} now: {contact_time_now}')
 
@@ -195,6 +196,7 @@ b-go back
         sql_operation = InfoBase()
         sql_operation.create_table()
         print('Contact base is empty' if self.check_if_db_empty() == 0 else '')
+        print(sql_operation)
         while True:
             print('\nchoose action:\n0.time operation\n1.add contact\n2.see contact info'
                   '\n3.change contact\n4.export contacts\n5.exit')
@@ -223,6 +225,9 @@ def main():
 |  \|___|  ||| \||__/|___|  \ 
                               ''')
     new = ContactsKeeper()
+    time_keeper = TimeKeeper()
+    print(repr(time_keeper))
+    pprint(TimeKeeper.__str__(time_keeper))
     new.start()
 
 
