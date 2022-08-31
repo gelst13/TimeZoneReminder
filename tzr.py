@@ -22,6 +22,7 @@ menu:
 * user can type contact_names/platform in any registry, but the program capitalize them
 
 """
+import argparse
 import datetime
 import logging
 import re
@@ -41,6 +42,15 @@ class ContactsKeeper:
         self.new_contact = ''
         self.user_input = ''
         self.call = 0
+        self.args = self.args()
+
+    @staticmethod
+    def args():
+        parser = argparse.ArgumentParser(description="This app has hidden command: 000 argument allows "
+                                                     "to print existing Contact base.")
+        parser.add_argument("--cmnd", default="",
+                            help="Type '000' to print existing Contact base")
+        return parser.parse_args()
 
     def time_operation(self):
         while True:
@@ -197,6 +207,8 @@ b-go back
         sql_operation.create_table()
         print('Contact base is empty' if self.check_if_db_empty() == 0 else '')
         print(sql_operation)
+        if self.args.command == '000':
+            sql_operation.print_contact_table()
         while True:
             print('\nchoose action:\n0.time operation\n1.add contact\n2.see contact info'
                   '\n3.change contact\n4.export contacts\n5.exit')
