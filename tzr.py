@@ -48,7 +48,7 @@ class ContactsKeeper:
     def args():
         parser = argparse.ArgumentParser(description="This app has hidden command: 000 argument allows "
                                                      "to print existing Contact base.")
-        parser.add_argument("--cmnd", default="",
+        parser.add_argument("--command", default="",
                             help="Type '000' to print existing Contact base")
         return parser.parse_args()
 
@@ -207,6 +207,7 @@ b-go back
         sql_operation.create_table()
         print('Contact base is empty' if self.check_if_db_empty() == 0 else '')
         print(sql_operation)
+        print(self.args.command)
         if self.args.command == '000':
             sql_operation.print_contact_table()
         while True:
