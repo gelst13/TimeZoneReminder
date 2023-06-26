@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <div class="form">
+        <form action="/add_contact" method="POST">
+            Enter contact name/nick:>
+            <input type="text" name="content" id="contact_name">
+            <input type="submit" value="Ok">
+        </form>
+        <br>
+        <form action="/" method="POST">
+            Where do you communicate? (Discord, Skype, Telegram, WhatsApp, etc.):>
+            <input type="text" name="content" id="platform">
+            <input type="submit" value="Ok">
+        </form>
+        <br>
+        <form action="/" method="POST">
+            Additional info/ commentary:>
+            <input type="text" name="content" id="comment">
+            <input type="submit" value="Ok">
+        </form>
+        <br>
+        <form action="/" method="POST">
+            Where this contact lives?:>
+            <input type="text" name="content" id="location">
+            <input type="submit" value="Ok">
+        </form>
+        <br>
+        <form action="/" method="POST">
+            Enter the name of time zone or hours of time difference to UTC/GMT:>
+            <input type="text" name="content" id="time_zone">
+            <input type="submit" value="Ok">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
