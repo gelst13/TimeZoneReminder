@@ -7,35 +7,34 @@
 
 {% block body %}
 <div class="content">
+    <p>
+        TimeZoneReminder (TZR) app recognizes following short names for time zones:<br>
+        {'ART': 'America/Argentina/Buenos_Aires',<br>
+         'CST': 'US/Central',<br>
+         'EST': 'US/Eastern',<br>
+         'IST': 'Asia/Kolkata',<br>
+         'JST': 'Asia/Tokyo',<br>
+         'MSK': 'Europe/Moscow',<br>
+         'PST': 'US/Pacific',<br>
+         'TURKEY': 'Europe/Istanbul',<br>
+         'UTC': 'Etc/UTC'}<br>
+    </p>
     <div class="form">
         <form action="/add_contact" method="POST">
-            Enter contact name/nick:>
-            <input type="text" name="content" id="contact_name">
-            <input type="submit" value="Ok">
-        </form>
-        <br>
-        <form action="/" method="POST">
-            Where do you communicate? (Discord, Skype, Telegram, WhatsApp, etc.):>
-            <input type="text" name="content" id="platform">
-            <input type="submit" value="Ok">
-        </form>
-        <br>
-        <form action="/" method="POST">
-            Additional info/ commentary:>
-            <input type="text" name="content" id="comment">
-            <input type="submit" value="Ok">
-        </form>
-        <br>
-        <form action="/" method="POST">
-            Where this contact lives?:>
-            <input type="text" name="content" id="location">
-            <input type="submit" value="Ok">
-        </form>
-        <br>
-        <form action="/" method="POST">
-            Enter the name of time zone or hours of time difference to UTC/GMT:>
-            <input type="text" name="content" id="time_zone">
-            <input type="submit" value="Ok">
+        <fieldset>
+        <legend>Contact's info:</legend>
+            <label for="contact_name">Name/nick</label>
+            <input type="text" id="contact_name" name="contact_name" /><br /><br />
+            <label for="platform">Platform:</label>
+            <input type="text" id="platform" name="platform" /><br /><br />
+            <label for="comment">Comment:</label>
+            <input type="text" id="comment" name="comment" /><br /><br />
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" /><br /><br />
+            <label for="time_zone">Time zone:</label>
+            <input type="text" id="time_zone" name="time_zone" /><br /><br />
+            <input type="submit" value="Submit" />
+    </fieldset>
         </form>
     </div>
 </div>

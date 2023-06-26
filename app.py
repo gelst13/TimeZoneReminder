@@ -8,7 +8,7 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 
-class Todo(db.Model):
+class Contacts(db.Model):
     contact_name = db.Column(db.String(255), primary_key=True)
     platform = db.Column(db.String(255), nullable=False)
     comment = db.Column(db.String(255))
@@ -23,12 +23,13 @@ class Todo(db.Model):
 # with app.app_context():
 #     db.create_all()
 
+new_contact = dict()
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         task_content = request.form.get('content')
-        new_task = Todo(content=task_content)
+        new_task = Contacts(content=task_content)
 
         try:
             db.session.add(new_task)
@@ -54,8 +55,14 @@ def index():
 #
 #
 
+
 @app.route('/add_contact')
 def add_contact():
+    global new_contact
+    if request.method == 'POST':
+        # if not new_contact:
+        #     new_contact['contact_name'] = request.form.get('contact_name')
+        return request.form
     return render_template('add_contact.html')
 # @app.route('/update/<int:id>', methods=['POST', 'GET'])
 # def update(id):
