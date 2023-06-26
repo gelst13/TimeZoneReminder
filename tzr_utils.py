@@ -141,12 +141,13 @@ class InfoBase:
             out_file.write('contact_name,platform,comment,location,zone_name,utc_offset\n')
             for row in sorted(data):
                 out_file.write(';'.join(list(map(str, row))) + '\n')
+        return file_name
 
     @staticmethod
     def export_contact_book():
         """Get path for saving exported data and copy original .csv-file there;
         Check if export file exists in designated location; Remove original .csv-file"""
-        create_csv_from_sql()
+        file_name = InfoBase.create_csv_from_sql()
         dst_folder = InfoBase.specify_destination()
         try:
             shutil.copy(file_name, dst_folder)
