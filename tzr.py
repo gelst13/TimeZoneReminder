@@ -120,28 +120,34 @@ b-go back
                 print(data[0])
                 ContactsKeeper.display_contact_current_time(data[0])
 
+    @staticmethod
+    def tz_from_input(time_zone:str):
+        if time_zone.isalpha():
+            zone_name = time_zone.upper()
+            utc_offset = None
+        elif re.match('[-+]?[0-9.]', time_zone):
+            zone_name = None
+            utc_offset = float(time_zone)
+        else:
+            return None, None
+        return zone_name, utc_offset
+
     def add_contact(self):
         # contact = [ contact_name / platform / comment / location / zone_name / utc_offset ]
         while True:
             contact_name = input('\nEnter contact name/nick:> ').capitalize()
             if contact_name in InfoBase.select_column('contact_name'):
                 print(f'Contact {contact_name} already exists. You can not add another contact with such name')
-                self.add_contact()
             else:
-                platform = input('Where do you communicate? (Discord, Skype, Telegram, WhatsApp, etc.):> ').capitalize()
-                comment = input('Additional info/ commentary:> ')
-                location = input('Where this contact lives?:> ').capitalize()
                 time_zone = input('Enter the name of time zone or hours of time difference to UTC/GMT:> ')
-                if time_zone.isalpha():
-                    zone_name = time_zone.upper()
-                    utc_offset = None
-                    break
-                elif re.match('[-+]?[0-9.]', time_zone):
-                    zone_name = None
-                    utc_offset = float(time_zone)
+                zone_name, utc_offset = ContactsKeeper.tz_from_input(time_zone)
+                if zone_name or utc_offset:
                     break
                 else:
                     print('Incorrect format. Try again!')
+        platform = input('Where do you communicate? (Discord, Skype, Telegram, WhatsApp, etc.):> ').capitalize()
+        comment = input('Additional info/ commentary:> ')
+        location = input('Where this contact lives?:> ').capitalize()
         self.new_contact = (contact_name, platform, comment, location, zone_name, utc_offset)
         print(self.new_contact)
         InfoBase.transfer_to_sql(*self.new_contact)

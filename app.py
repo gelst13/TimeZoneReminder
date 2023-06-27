@@ -1,6 +1,8 @@
+import json
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+# from tzr import ContactsKeeper
 
 
 app = Flask(__name__)
@@ -25,18 +27,12 @@ class Contacts(db.Model):
 
 new_contact = dict()
 
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         task_content = request.form.get('content')
-        new_task = Contacts(content=task_content)
 
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-            return redirect('/')
-        except:
-            return f'There was an issue adding new task <{task_content}>'
     else:
         # tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html')
@@ -56,13 +52,23 @@ def index():
 #
 
 
-@app.route('/add_contact')
+@app.route('/add_contact', methods=['POST', 'GET'])
 def add_contact():
     global new_contact
     if request.method == 'POST':
         # if not new_contact:
         #     new_contact['contact_name'] = request.form.get('contact_name')
-        return request.form
+        info = (request.form.get('contact_name'), request.form.get('platform'),
+                 request.form.get('comment'), request.form.get('location'),
+                 request.form.get('time_zone'))
+        print(info)
+        # zone_name, utc_offset = ContactsKeeper.tz_from_input(info[4])
+        new_contact = Contacts(contact_name=info[0], platform=info[1],
+                               comment=info[2], location=info[3],
+                               utc_offset=None, zone_name=None)
+        db.session.add(new_contact)
+        db.session.commit()
+        return new_contact.contact_name
     return render_template('add_contact.html')
 # @app.route('/update/<int:id>', methods=['POST', 'GET'])
 # def update(id):
