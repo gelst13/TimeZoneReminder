@@ -53,36 +53,45 @@ def delete(contact_name):
 def add_contact():
     global new_contact
     if request.method == 'POST':
-        # if not new_contact:
-        #     new_contact['contact_name'] = request.form.get('contact_name')
         info = (request.form.get('contact_name'), request.form.get('platform'),
                 request.form.get('comment'), request.form.get('location'),
                 request.form.get('time_zone'))
         print(info)
         zone_name, utc_offset = TimeKeeper.tz_from_input(info[4])
-        new_contact = Contacts(contact_name=info[0], platform=info[1],
-                               comment=info[2], location=info[3],
-                               utc_offset=None, zone_name=None)
+        print(zone_name, utc_offset)
+        if zone_name:
+            new_contact = Contacts(contact_name=info[0], platform=info[1],
+                                   comment=info[2], location=info[3],
+                                   zone_name=zone_name)
+        elif utc_offset:
+            new_contact = Contacts(contact_name=info[0], platform=info[1],
+                                   comment=info[2], location=info[3],
+                                   utc_offset=utc_offset)
+        else:
+            new_contact = Contacts(contact_name=info[0], platform=info[1],
+                                   comment=info[2], location=info[3])
         db.session.add(new_contact)
         db.session.commit()
         new_contact = ()
-        return render_template('add_contact.html')
+        return render_template('index.html')
     return render_template('add_contact.html')
-# @app.route('/update/<int:id>', methods=['POST', 'GET'])
-# def update(id):
-#     task = Contacts.query.get_or_404(id)
-#     if request.method == 'POST':
-#         task.content = request.form.get('content')
-#
-#         try:
-#             db.session.commit()
-#             return redirect('/')
-#         except Exception as e:
-#             print(e)
-#             return f'There was an issue updating task {id}'
-#     else:
-#
-#         return render_template('update.html', task=task)
+
+
+@app.route('/update/<int:id>', methods=['POST', 'GET'])
+def update(id):
+    task = Contacts.query.get_or_404(id)
+    if request.method == 'POST':
+        task.content = request.form.get('content')
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except Exception as e:
+            print(e)
+            return f'There was an issue updating task {id}'
+    else:
+
+        return render_template('update.html', task=task)
 
 
 if __name__ == '__main__':
