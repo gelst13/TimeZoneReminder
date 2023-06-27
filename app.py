@@ -34,22 +34,19 @@ def index():
         command = request.form.get('command')
 
     else:
-        # tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html')
+        contacts = Contacts.query.order_by(Contacts.contact_name).all()
+        return render_template('index.html', contacts=contacts)
 
-#
-# @app.route('/delete/<int:id>')
-# def delete(id):
-#     task_to_delete = Todo.query.get_or_404(id)
-#
-#     try:
-#         db.session.delete(task_to_delete)
-#         db.session.commit()
-#         return redirect('/')
-#     except:
-#         return f'There was a problem deleting task {id}<{task_to_delete.content}>'
-#
-#
+
+@app.route('/delete/<contact_name>')
+def delete(contact_name):
+    contact_to_delete = Contacts.query.get_or_404(contact_name)
+    try:
+        db.session.delete(contact_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return f'There was a problem deleting contact {id}<{contact_to_delete.content}>'
 
 
 @app.route('/add_contact', methods=['POST', 'GET'])
@@ -73,7 +70,7 @@ def add_contact():
     return render_template('add_contact.html')
 # @app.route('/update/<int:id>', methods=['POST', 'GET'])
 # def update(id):
-#     task = Todo.query.get_or_404(id)
+#     task = Contacts.query.get_or_404(id)
 #     if request.method == 'POST':
 #         task.content = request.form.get('content')
 #

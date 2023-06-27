@@ -6,18 +6,60 @@
 
 
 {% block body %}
+<div class="db">
+    <h2>Contact book</h2>
+    {% if contacts|length < 1 %}
+    <h4>Your contact book is empty.</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>contact_name</th>
+            <th>zone_name</th>
+            <th>utc_offset</th>
+            <th>platform</th>
+            <th>comment</th>
+            <th>location</th>
+         </tr>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.contact_name }}</td>
+            <td>{{ contact.zone_name }}</td>
+            <td>{{ contact.utc_offset }}</td>
+            <td>{{ contact.platform }}</td>
+            <td>{{ contact.comment }}</td>
+            <td>{{ contact.location }}</td>
+            <td>
+                <a href="/delete/{{ contact.contact_name }}">Delete</a>
+                <br>
+                <a href="/update/{{ contact.contact_name }}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+<div class="info">
+    <h1>Time zone reminder (TZR)</h1><br>
+    <ul>TZR app recognizes following short names for time zones:
+        <li>{'ART': 'America/Argentina/Buenos_Aires',</li>
+        <li>'CST': 'US/Central',</li>
+        <li>'EST': 'US/Eastern',</li>
+        <li>'IST': 'Asia/Kolkata',</li>
+        <li>'JST': 'Asia/Tokyo',</li>
+        <li>'MSK': 'Europe/Moscow',</li>
+        <li>'PST': 'US/Pacific',</li>
+        <li>'TURKEY': 'Europe/Istanbul',</li>
+        <li>'UTC': 'Etc/UTC'}</li>
+     </ul>
+</div>
+<div class="time">
+    <h2>Time operations</h2><br>
+</div>
 <div class="command">
-    <h1>Time zone reminder</h1><br>
-    <ul>choose action:
-        <li>0.time operation</li>
-        <li>1.add contact</li>
-        <li>2.see contact info</li>
-        <li>3.change contact</li>
-        <li>4.export contacts</li>
-    </ul>
     <form action="/" method="POST">
         <input type="text" name="command" id="command">
-        <input type="submit" value="Choose action">
+        <input type="submit" value="Ok">
     </form>
 </div>
 
