@@ -5,6 +5,7 @@ import datetime
 import logging
 import os
 import pytz
+import re
 import shutil
 import sqlite3
 import time
@@ -303,3 +304,15 @@ class TimeKeeper:
         except AssertionError as error:
             print(error)
             TimeKeeper.convert_time(self)
+
+    @staticmethod
+    def tz_from_input(time_zone: str):
+        if time_zone.isalpha():
+            zone_name = time_zone.upper()
+            utc_offset = None
+        elif re.match('[-+]?[0-9.]', time_zone):
+            zone_name = None
+            utc_offset = float(time_zone)
+        else:
+            return None, None
+        return zone_name, utc_offset

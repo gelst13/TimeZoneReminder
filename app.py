@@ -2,7 +2,7 @@ import json
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-# from tzr import ContactsKeeper
+# from tzr_utils import TimeKeeper
 
 
 app = Flask(__name__)
@@ -62,7 +62,7 @@ def add_contact():
                  request.form.get('comment'), request.form.get('location'),
                  request.form.get('time_zone'))
         print(info)
-        # zone_name, utc_offset = ContactsKeeper.tz_from_input(info[4])
+        # zone_name, utc_offset = TimeKeeper.tz_from_input(info[4])
         new_contact = Contacts(contact_name=info[0], platform=info[1],
                                comment=info[2], location=info[3],
                                utc_offset=None, zone_name=None)
