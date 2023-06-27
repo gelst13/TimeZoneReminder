@@ -77,21 +77,27 @@ def add_contact():
     return render_template('add_contact.html')
 
 
-@app.route('/update/<int:id>', methods=['POST', 'GET'])
-def update(id):
-    task = Contacts.query.get_or_404(id)
+@app.route('/update/<contact_name>', methods=['POST', 'GET'])
+def update(contact_name):
+    contact = Contacts.query.get_or_404(contact_name)
     if request.method == 'POST':
-        task.content = request.form.get('content')
-
+        info = (request.form.get('contact_name'), request.form.get('platform'),
+                request.form.get('comment'), request.form.get('location'),
+                request.form.get('zone_name'), request.form.get('utc_offset'))
+        contact.contact_name = info[0]
+        contact.platform = info[1]
+        contact.comment = info[2]
+        contact.location = info[3]
+        contact.zone_name = info[4]
+        contact.utc_offset = info[5]
         try:
             db.session.commit()
             return redirect('/')
         except Exception as e:
             print(e)
-            return f'There was an issue updating task {id}'
+            return f'There was an issue updating contact {contact_name}'
     else:
-
-        return render_template('update.html', task=task)
+        return render_template('update.html', contact=contact)
 
 
 if __name__ == '__main__':
