@@ -31,7 +31,7 @@ new_contact = dict()
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        task_content = request.form.get('content')
+        command = request.form.get('command')
 
     else:
         # tasks = Todo.query.order_by(Todo.date_created).all()
@@ -59,8 +59,8 @@ def add_contact():
         # if not new_contact:
         #     new_contact['contact_name'] = request.form.get('contact_name')
         info = (request.form.get('contact_name'), request.form.get('platform'),
-                 request.form.get('comment'), request.form.get('location'),
-                 request.form.get('time_zone'))
+                request.form.get('comment'), request.form.get('location'),
+                request.form.get('time_zone'))
         print(info)
         zone_name, utc_offset = TimeKeeper.tz_from_input(info[4])
         new_contact = Contacts(contact_name=info[0], platform=info[1],
@@ -68,7 +68,7 @@ def add_contact():
                                utc_offset=None, zone_name=None)
         db.session.add(new_contact)
         db.session.commit()
-        new_contact = None
+        new_contact = ()
         return render_template('add_contact.html')
     return render_template('add_contact.html')
 # @app.route('/update/<int:id>', methods=['POST', 'GET'])

@@ -6,7 +6,7 @@
 
 
 {% block body %}
-<div class="content">
+<div class="command">
     <h1>Time zone reminder</h1><br>
     <ul>choose action:
         <li>0.time operation</li>
@@ -14,10 +14,9 @@
         <li>2.see contact info</li>
         <li>3.change contact</li>
         <li>4.export contacts</li>
-        <li>5.exit</li>
     </ul>
     <form action="/" method="POST">
-        <input type="text" name="content" id="content">
+        <input type="text" name="command" id="command">
         <input type="submit" value="Choose action">
     </form>
 </div>
