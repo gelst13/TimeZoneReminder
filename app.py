@@ -31,8 +31,9 @@ new_contact = dict()
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        command = request.form.get('command')
-
+        data = list(map(int, request.form.get('time_data').split(':')))
+        result = TimeKeeper.time_operation_0(data)
+        return "In {} hours {} minutes it'll be: {}".format(data[0], data[1], result)
     else:
         contacts = Contacts.query.order_by(Contacts.contact_name).all()
         return render_template('index.html', contacts=contacts)
@@ -46,7 +47,7 @@ def delete(contact_name):
         db.session.commit()
         return redirect('/')
     except:
-        return f'There was a problem deleting contact {id}<{contact_to_delete.content}>'
+        return f'There was a problem deleting contact <{contact_to_delete.content}>'
 
 
 @app.route('/add_contact', methods=['POST', 'GET'])

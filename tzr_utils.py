@@ -317,3 +317,10 @@ class TimeKeeper:
         else:
             return None, None
         return zone_name, utc_offset
+
+    @staticmethod
+    def time_operation_0(time_period: list) -> str:
+        """0-display the time that will come after a certain time period"""
+        current_local_time = time.localtime()
+        print(f"In {time_period[0]} hours {time_period[1]} minutes it'll be:")
+        return TimeKeeper.calculate_time(current_local_time, time_period)
