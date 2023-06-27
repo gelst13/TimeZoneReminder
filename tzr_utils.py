@@ -2,7 +2,7 @@
 
 
 import datetime
-import logging
+# import logging
 import os
 import pytz
 import re
@@ -13,8 +13,8 @@ from dateutil.tz import tzoffset, tzlocal, tz
 from pprint import pprint
 
 
-logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
-                    format='%(levelname)s - %(message)s')
+# logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
+#                     format='%(levelname)s - %(message)s')
 
 
 class InfoBase:
@@ -84,6 +84,7 @@ class InfoBase:
             conn.close()
         except sqlite3.Error as error:
             print("Failed to delete record from contact table", error)
+
         finally:
             if conn:
                 conn.close()
@@ -156,7 +157,7 @@ class InfoBase:
                 print(f'{file_name} is successfully saved to {dst_folder}.')
                 os.remove(file_name)
         except Exception as e:
-            logging.debug(e)
+            # logging.debug(e)
             print(f'Cannot save file to {dst_folder} so {file_name} is successfully saved to {os.getcwd()}')
 
 
@@ -165,7 +166,7 @@ def timer(func):
         start = time.time()
         func(func_argument)
         end = time.time()
-        logging.info('def convert_time() ran ' + str(end - start) + ' seconds')
+        # logging.info('def convert_time() ran ' + str(end - start) + ' seconds')
     return wrapper
 
 
@@ -195,19 +196,19 @@ class TimeKeeper:
     def calculate_time(time_obj, time_interval: list) -> str:
         """ how much time will it be in ..2 hours?
         """
-        logging.info(f'***def calculate_time({time.strftime("%H:%M", time_obj)}, {time_interval})')
+        # logging.info(f'***def calculate_time({time.strftime("%H:%M", time_obj)}, {time_interval})')
         time0 = list(map(int, time.strftime("%H:%M", time_obj).split(':')))
         hours, minutes = time0[0], time0[1]
         hours2, minutes2 = hours + time_interval[0], minutes + time_interval[1]
         time2 = datetime.timedelta(hours=hours2, minutes=minutes2)
-        logging.debug(str(time2)[:5])
+        # logging.debug(str(time2)[:5])
         return str(time2)[:5]
 
     @staticmethod
     def get_current_time(tz_data) -> str:
         """convert current local time into another time zone"""
-        logging.info('***def get_current_time(tz_data)')
-        logging.debug(f'tz_data={tz_data}')
+        # logging.info('***def get_current_time(tz_data)')
+        # logging.debug(f'tz_data={tz_data}')
         try:
             offset = datetime.timedelta(hours=float(tz_data))
             tz_ = datetime.timezone(offset)
@@ -222,7 +223,7 @@ class TimeKeeper:
     @staticmethod
     def date_constructor(zone_info, date: list, time0: list):
         """Return time zone-aware object"""
-        logging.info(f'***def date_constructor({zone_info}, {date}, {time0})')
+        # logging.info(f'***def date_constructor({zone_info}, {date}, {time0})')
         if isinstance(zone_info, float):
             # time from local time zone
             return datetime.datetime(date[0], date[1], date[2], time0[0], time0[1], 0,
@@ -262,25 +263,25 @@ class TimeKeeper:
     @timer
     def convert_time(self):
         """Convert time and print result"""
-        logging.info('***def convert_time')
+        # logging.info('***def convert_time')
         self.call += 1
         time_params = TimeKeeper.define_tzfrom_tzto_time()
         tz_from, tz_to, time_ = time_params[0], time_params[1], time_params[2]
-        logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
+        # logging.debug(f'tz_from={tz_from}, tz_to={tz_to}, time_={time_}')
         time0 = list(map(int, time_.split(':')))
-        logging.debug(f'time0: {time0}')
+        # logging.debug(f'time0: {time0}')
         try:
             message = 'IncorrectInput: hour must be in 0..23 and minute must be in 0..59'
             assert (0 <= time0[0] <= 23 and 0 <= time0[1] <= 59), message
 
             date = list(map(int, datetime.datetime.now().strftime('%Y-%m-%d').split('-')))  # [2022, 6, 29]
-            logging.debug(date)
+            # logging.debug(date)
             dt = TimeKeeper.date_constructor(tz_from, date, time0)
-            logging.debug(f'datetime aware constructed: {dt}')
+            # logging.debug(f'datetime aware constructed: {dt}')
             if not dt:
                 return False
             dt_utc = dt.astimezone(pytz.utc)
-            logging.debug(f' UTC {dt_utc}')
+            # logging.debug(f' UTC {dt_utc}')
             if isinstance(tz_from, float):  # i.d. from local time
                 try:  # if user provided offset
                     hours = int(str(float(tz_to)).split('.')[0])
