@@ -14,4 +14,5 @@ In 5 hours 0 minutes it'll be: 1 day
 
 structure your app a bit. Like creating modules for models and routes.
 And remove them from the main app.
+Flask blueprints can help a bit.
 """
