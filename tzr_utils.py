@@ -241,13 +241,14 @@ class TimeKeeper:
                 print(f'there are no {zone_info} time zone in my database. Try again with offset to UTC')
 
     @staticmethod
-    def define_tzfrom_tzto_time():
+    def define_tzfrom_tzto_time(from_local=''):
         """Supporting method for def convert_time()
         Return tz_from: float  or str,
         tz_to: float or str or <class dateutil.tz.tzlocal>,
         _time: str"""
         tz_from, tz_to = None, None
-        from_local = input('convert local time? y/n ')
+        if not from_local:
+            from_local = input('convert local time? y/n ')
         if from_local.lower() == 'y':
             tz_from = float(datetime.datetime.now().astimezone().strftime('%z')) / 100  # get local offset
             tz_to = input('Enter the destination time zone: name or offset to UTC/GMT:> ')
