@@ -21,6 +21,13 @@ class Contacts(db.Model):
     def __repr__(self):
         return '<Contact {} from {}>'.format(self.contact_name, self.location)
 
+    @property
+    def contact_time(self):
+        if self.zone_name:
+            return TimeKeeper.get_current_time(self.zone_name)
+        elif self.utc_offset:
+            return TimeKeeper.get_current_time(self.utc_offset)
+
 
 # with app.app_context():
 #     db.create_all()

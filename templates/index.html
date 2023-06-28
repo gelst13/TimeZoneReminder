@@ -34,6 +34,7 @@
             <th>platform</th>
             <th>comment</th>
             <th>location</th>
+            <th>current time</th>
          </tr>
         {% for contact in contacts %}
         <tr>
@@ -43,6 +44,7 @@
             <td>{{ contact.platform }}</td>
             <td>{{ contact.comment }}</td>
             <td>{{ contact.location }}</td>
+            <td>{{ contact.contact_time }}</td>
             <td>
                 <a href="/delete/{{ contact.contact_name }}">Delete</a>
                 <br>
