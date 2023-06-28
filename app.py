@@ -46,6 +46,16 @@ def index():
         return render_template('index.html', contacts=contacts)
 
 
+@app.route('/time_operations', methods=['POST', 'GET'])
+def time_operations():
+    if request.method == 'POST':
+        data = request.form.get('time_data_1')
+        print(data)
+        result = TimeKeeper().get_current_time(data)
+        return f'current time in {data} time zone: {result}'
+    return render_template('time_operations.html')
+
+
 @app.route('/delete/<contact_name>')
 def delete(contact_name):
     contact_to_delete = Contacts.query.get_or_404(contact_name)
