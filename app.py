@@ -38,18 +38,22 @@ new_contact = dict()
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        data = list(map(int, request.form.get('time_data').split(':')))
-        result = TimeKeeper.time_operation_0(data)
-        return "In {} hours {} minutes it'll be: {}".format(data[0], data[1], result)
+        pass
     else:
         contacts = Contacts.query.order_by(Contacts.contact_name).all()
-        return render_template('index.html', contacts=contacts)
+        tz_dict = TimeKeeper.tz_olson
+        print(tz_dict)
+        return render_template('index.html', contacts=contacts, tz_dict=tz_dict)
 
 
 @app.route('/time_operations', methods=['POST', 'GET'])
 def time_operations():
     if request.method == 'POST':
-        if request.form.get('time_data_1'):
+        if request.form.get('time_data'):
+            data = list(map(int, request.form.get('time_data').split(':')))
+            result = TimeKeeper.time_operation_0(data)
+            return "In {} hours {} minutes it'll be: {}".format(data[0], data[1], result)
+        elif request.form.get('time_data_1'):
             data = request.form.get('time_data_1')
             print(data)
             result = TimeKeeper().get_current_time(data)

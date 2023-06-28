@@ -7,17 +7,11 @@
 
 {% block body %}
 <div class="info">
-    <h1>Time zone reminder (TZR)</h1><br>
+    <h1>Time zone reminder (TZR)</h1>
     <ul>TZR app recognizes following short names for time zones:
-        <li>{'ART': 'America/Argentina/Buenos_Aires',</li>
-        <li>'CST': 'US/Central',</li>
-        <li>'EST': 'US/Eastern',</li>
-        <li>'IST': 'Asia/Kolkata',</li>
-        <li>'JST': 'Asia/Tokyo',</li>
-        <li>'MSK': 'Europe/Moscow',</li>
-        <li>'PST': 'US/Pacific',</li>
-        <li>'TURKEY': 'Europe/Istanbul',</li>
-        <li>'UTC': 'Etc/UTC'}</li>
+        {% for key, value in tz_dict.items() %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
      </ul>
 </div>
 
@@ -61,28 +55,7 @@
 
 
 <div class="time">
-    <h2>Time operations</h2><br>
-    <ul>Available time operations:
-        <li>Display the time that will come after a certain time period</li>
-        How much time forward (00:00 - 24:00):>
-        <div class="time_data">
-        <form action="/" method="POST">
-            <input type="text" name="time_data" id="time_data">
-            <input type="submit" value="Ok">
-        </form>
-    </div>
-        <br>
-        <li>Current time in another time zone</li>
-
-
-        <br>
-        <li>convert time(local time to some other time zone or vice versa)</li>
-    </ul>
-    <a href="/time_operations">Time operations</a>
-
-
-
-
+    <a href="/time_operations"><h2>Time operations</h2></a>
 </div>
 
 
