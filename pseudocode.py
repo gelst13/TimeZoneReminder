@@ -10,7 +10,8 @@ on main page:
 add Time operations block
 0: find error
 In 5 hours 0 minutes it'll be: 1 day
-(write unittest)
++(write unittest)
 
-1-display current time in another time zone
+structure your app a bit. Like creating modules for models and routes.
+And remove them from the main app.
 """
