@@ -1,3 +1,5 @@
 ###Usage:
-In Your Terminal(command line) run:
-python tzr.py
+
+
+###History:
+22/08/2023 started django version
