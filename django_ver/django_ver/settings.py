@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'timop.apps.TimopConfig'
+    'timop.apps.TimopConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
