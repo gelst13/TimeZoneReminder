@@ -1,0 +1,17 @@
+python manage.py makemigrations
+Migrations for 'blog':
+  blog/migrations/0001_initial.py
+    - Create model Post
+(venv) gelst13@gelst13-VivoBook-ASUSLaptop-M1503QA-M1503QA:~/PycharmProjects/TimeZ/django_ver$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying blog.0001_initial... OK
+(venv) gelst13@gelst13-VivoBook-ASUSLaptop-M1503QA-M1503QA:~/PycharmProjects/TimeZ/django_ver$ python manage.py sqlmigrate blog 0001
+BEGIN;
+--
+-- Create model Post
+--
+CREATE TABLE "blog_post" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(100) NOT NULL, "content" text NOT NULL, "date_posted" datetime NOT NULL);
+COMMIT;
+(venv) gelst13@gelst13-VivoBook-ASUSLaptop-M1503QA-M1503QA:~/PycharmProjects/TimeZ/django_ver$ #
