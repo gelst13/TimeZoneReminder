@@ -2,6 +2,8 @@
 {% block content %}
     {% for post in posts %}
         <article class="media content-section">
+            <img class="rounded-circle article-img"
+                 src='/media/default.jpg'>
           <div class="media-body">
             <div class="article-metadata">
               <small class="text-muted">{{ post.date_posted }}</small>
