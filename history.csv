@@ -1,3 +1,8 @@
+24-08-2023
+and today bootstrap4 got broken,
+so now my little Django app looks terrible like its Flask brother
+#
+23-08-2023
 python manage.py makemigrations
 Migrations for 'blog':
   blog/migrations/0001_initial.py
