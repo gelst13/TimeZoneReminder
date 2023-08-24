@@ -131,4 +131,4 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'timop'
-LOGIN_URL = 'login’
+LOGIN_URL = 'login'
