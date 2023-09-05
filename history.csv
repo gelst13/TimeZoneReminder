@@ -1,3 +1,14 @@
+05-09-2023
+Today I added "delete post" functionality,
+and set redirection to the blog page -
+not to the main web-site's page as it's done in tutorial.
+#
+04-09-2023
+The idea for TimeZ' Blog app is that posts can be created/updated/deleted
+by staff users only.
+So I set access to create/update/delete for staff users -
+not post author as it's done in tutorial.
+#
 24-08-2023
 and today bootstrap4 got broken,
 so now my little Django app looks terrible like its Flask brother
