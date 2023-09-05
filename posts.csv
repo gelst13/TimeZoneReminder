@@ -1,0 +1,22 @@
+date_posted,title,content
+05/09/2023,|Redirection to the blog page with reverse_lazy()|,|I added "delete post" functionality,
+and set redirection to the blog page -
+not to the main web-site's page as it's done in tutorial.|
+04/09/2023,|Set access to create/update/delete posts for staff users|,|The idea for TimeZ' Blog app is that posts can be
+created/updated/deleted by staff users only.
+Thus I decided to put permissions check instead of tutorial's version
+where only author of the post could update it.|
+24/08/2023,bootstrap4 got broken,|What a shame..
+Now my little Django app looks terrible like its Flask brother|
+23/08/2023,Attempt #2,|Suddenly it's working!!
+<<System check identified no issues (0 silenced).
+August 23, 2023 - 09:59:11
+Django version 4.2.4, using settings 'django_ver.settings'
+Starting development server at http://127.0.0.1:8000/...>>|
+|22/08/2023|,|Let's get Django version of TimeZ started!|,|I've finished CreyMsSchafer's tutorial, and I'm ready to build my own app!
+...and I couldn't do anything
+because right after installing Django I got error
+<<_No Django settings specified
+You must either define the environment variable DJANGO_SETTINGS_MODULE
+or call settings.configure() before accessing settings_>>
+Struggled for 2 hours to solve this problem.. Nothing.|
