@@ -1,8 +1,10 @@
 import time
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from dateutil.tz import tzoffset, tzlocal, tz
 
 
 class Post(models.Model):
@@ -18,5 +20,7 @@ class Post(models.Model):
 
     @property
     def date_local(self):
-        tz = timezone.get_current_timezone()  # get local offset
-        return self.date_posted.strftime('%d.%m.%Y %H:%M %z%Z')
+        # zone = timezone(timedelta(seconds=abs(time.timezone)))  # get local offset
+        # zone_info = float(datetime.now().astimezone().strftime('%z')) / 100
+        # return timezone.now().strftime('%d.%m.%Y %H:%M %z%Z')
+        return self.date_posted.astimezone(ZoneInfo("Europe/Moscow")).strftime('%d.%m.%Y %H:%M %z%Z')

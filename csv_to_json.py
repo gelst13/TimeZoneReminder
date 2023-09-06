@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 
 def transform_date_string(date: dict):
     # datetime.datetime(2023, 8, 23, 11, 48, 27, 151924, tzinfo=datetime.timezone.utc)
+    # zone_info = float(datetime.now().astimezone().strftime('%z')) / 100
     zone = timezone(timedelta(seconds=abs(time.timezone)))  # get local offset
     d = datetime(year=date['year'], month=date['month'], day=date['day'],
                  hour=12, minute=0, second=0,
