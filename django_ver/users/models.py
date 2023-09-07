@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from timop import tzr_utils
 from PIL import Image
 
 
@@ -38,3 +39,10 @@ class Contact(models.Model):
 
     def get_absolute_url(self):
         return reverse('contact-detail', kwargs={'pk': self.pk})
+
+    @property
+    def contact_time(self):
+        if self.utc_offset:
+            return tzr_utils.TimeKeeper.get_current_time(self.utc_offset)
+        elif self.zone_name:
+            return tzr_utils.TimeKeeper.get_current_time(self.zone_name)
