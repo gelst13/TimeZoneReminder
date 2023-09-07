@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView, CreateView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Contact
 
@@ -45,3 +46,12 @@ def contacts(request):
 class ContactDetailView(DetailView):
     model = Contact
 
+
+class ContactCreateView(LoginRequiredMixin, CreateView):
+    model = Contact
+    fields = ['contact_name', 'platform', 'comment', 'location',
+              'zone_name', 'utc_offset']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user  # take current logged in user
+        return super().form_valid(form)
