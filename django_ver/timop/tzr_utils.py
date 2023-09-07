@@ -13,6 +13,7 @@ from dateutil.tz import tzoffset, tzlocal, tz
 
 logging.basicConfig(filename='tzr.log', level=logging.DEBUG, filemode='a',
                     format='%(levelname)s - %(message)s')
+logging.disable(40)
 
 
 class InfoBase:
