@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import (ContactDetailView, ContactCreateView, ContactUpdateView,
-                    ContactListView)
+                    ContactListView, ContactDeleteView)
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('contact/<int:pk>', ContactDetailView.as_view(), name='contact-detail'),
     path('contact/new/', ContactCreateView.as_view(), name='contact-add'),
     path('contact/<int:pk>/update/', ContactUpdateView.as_view(), name='contact-update'),
+    path('contact/<int:pk>/delete/', ContactDeleteView.as_view(), name='contact-delete'),
 ]

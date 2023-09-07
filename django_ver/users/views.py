@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import DetailView, CreateView, UpdateView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView, UpdateView, ListView, DeleteView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Contact
 
@@ -77,3 +78,15 @@ class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == contact.owner:
             return True
         return False
+
+
+class ContactDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Contact
+    success_url = reverse_lazy('contacts')
+
+    def test_func(self):
+        contact = self.get_object()
+        if self.request.user == contact.owner:
+            return True
+        return False
+
