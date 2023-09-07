@@ -18,24 +18,20 @@
          </tr>
         {% for object in objects %}
         <tr>
-            <td>{{ object.contact_name }}</td>
+            <td><h5><a class="article-title" href="{% url 'contact-detail' object.id %}"> {{ object.contact_name }} </a></h5></td>
             <td>{{ object.zone_name }}</td>
             <td>{{ object.utc_offset }}</td>
             <td>{{ object.platform }}</td>
             <td>{{ object.comment }}</td>
             <td>{{ object.location }}</td>
             <td> object.contact_time </td>
-            <td>
-                <a href="#">Delete</a>
-                <br>
-                <a href="#">Update</a>
-            </td>
+
         </tr>
         {% endfor %}
     </table>
     {% endif %}
     <br>
-    <a href="#">Add contact</a>
+    <a class="nav-item nav-link" href="{% url 'contact-add' %}">Add contact</a>
     <br>
 </div>
 

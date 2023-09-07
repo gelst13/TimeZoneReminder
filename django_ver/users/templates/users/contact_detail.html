@@ -1,7 +1,8 @@
 {% extends "timop/base.html" %}
 {% block content %}
 <div>
-    <p>{{ object.contact_name }}</p>
+
+    <h3>{{ object.contact_name }}</h3>
     <p>{{ object.zone_name }}</p>
     <p>{{ object.utc_offset }}</p>
     <p>{{ object.platform }}</p>
@@ -10,4 +11,8 @@
     <p>object.contact_time</p>
 </div>
 
+<div>
+    <a class="nav-item nav-link" href="#">Delete</a>
+    <a class="nav-item nav-link" href="#">Update</a>
+</div>
 {% endblock content %}
