@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import DetailView, CreateView, UpdateView, ListView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Contact
 
@@ -40,7 +40,13 @@ def profile(request):
 def contacts(request):
     context = {'objects': Contact.objects.all()
                }
-    return render(request, 'users/contacts.html', context=context)
+    return render(request, 'users/contact_list.html', context=context)
+
+
+class ContactListView(ListView):
+    model = Contact
+    context_object_name = 'objects'
+    ordering = ['contact_name']
 
 
 class ContactDetailView(DetailView):
@@ -55,3 +61,19 @@ class ContactCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user  # take current logged in user
         return super().form_valid(form)
+
+
+class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Contact
+    fields = ['contact_name', 'platform', 'comment', 'location',
+              'zone_name', 'utc_offset']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user  # take current logged in user
+        return super().form_valid(form)
+
+    def test_func(self):
+        contact = self.get_object()
+        if self.request.user == contact.owner:
+            return True
+        return False
