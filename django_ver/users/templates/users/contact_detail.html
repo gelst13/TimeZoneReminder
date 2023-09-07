@@ -12,7 +12,7 @@
 </div>
 
 <div>
-    <a class="nav-item nav-link" href="#">Delete</a>
-    <a class="nav-item nav-link" href="#">Update</a>
+    <a class="nav-item nav-link" href="{% url 'contact-delete' object.id %}">Delete</a>
+    <a class="nav-item nav-link" href="{% url 'contact-update' object.id %}">Update</a>
 </div>
 {% endblock content %}
