@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Contact
 
@@ -39,3 +40,8 @@ def contacts(request):
     context = {'objects': Contact.objects.all()
                }
     return render(request, 'users/contacts.html', context=context)
+
+
+class ContactDetailView(DetailView):
+    model = Contact
+
