@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import Contact
 
 
 @login_required
@@ -32,3 +33,9 @@ def register(request):
 def profile(request):
     return render(request, 'users/profile.html')
 
+
+@login_required
+def contacts(request):
+    context = {'objects': Contact.objects.all()
+               }
+    return render(request, 'users/contacts.html', context=context)

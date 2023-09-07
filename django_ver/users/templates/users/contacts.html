@@ -1,0 +1,42 @@
+{% extends "timop/base.html" %}
+{% block content %}
+
+<div>
+    <h2>Contact book</h2>
+    {% if objects|length < 1 %}
+    <h4>Your contact book is empty.</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>contact_name</th>
+            <th>zone_name</th>
+            <th>utc_offset</th>
+            <th>platform</th>
+            <th>comment</th>
+            <th>location</th>
+            <th>current time</th>
+         </tr>
+        {% for object in objects %}
+        <tr>
+            <td>{{ object.contact_name }}</td>
+            <td>{{ object.zone_name }}</td>
+            <td>{{ object.utc_offset }}</td>
+            <td>{{ object.platform }}</td>
+            <td>{{ object.comment }}</td>
+            <td>{{ object.location }}</td>
+            <td> object.contact_time </td>
+            <td>
+                <a href="#">Delete</a>
+                <br>
+                <a href="#">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <br>
+    <a href="#">Add contact</a>
+    <br>
+</div>
+
+{% endblock content %}
