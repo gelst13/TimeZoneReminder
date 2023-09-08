@@ -50,7 +50,7 @@ class ContactListView(ListView):
     ordering = ['contact_name']
 
 
-class ContactDetailView(DetailView):
+class ContactDetailView(LoginRequiredMixin, DetailView):
     model = Contact
 
 
@@ -89,4 +89,3 @@ class ContactDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == contact.owner:
             return True
         return False
-
