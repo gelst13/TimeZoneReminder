@@ -7,5 +7,5 @@ but later users page will become main page
 
 - change tzr_utils to work with Olsen tz names Asia/Almaty
 
-- add user's time zone to profile
++ add user's time zone to profile
 """
