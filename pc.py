@@ -10,4 +10,6 @@ but later users page will become main page
 + add user's time zone to profile
 
 - correct how "author's" image is displayed in post_detail.html
+
+- add comments to posts from logged-in users
 """

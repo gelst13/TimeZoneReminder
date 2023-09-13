@@ -1,4 +1,33 @@
 {% extends "timop/base.html" %}
 {% block content %}
-    <h1>Time operations</h1>
+<h2>Current time in a time zone</h2>
+<p>Enter the name of time zone or utc-offset:</p>
+<table style="width: 900px">
+    <tbody>
+      <tr>
+          <td>
+                <form action="{% url 'timop' %}" method="POST">{% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit">Submit</button>
+                </form>
+          </td>
+          <td>{% if result %}
+                {{ result }}
+            {% endif %}
+          </td>
+      </tr>
+    </tbody>
+</table>
+
+
+
+<br>
+<h2>Convert time</h2>
+    <h3>-> convert local time to some other time zone</h3>
+    Enter the destination time zone(name or utc-offset) and time
+    in format "EST;00:00" :>
+<h3><- convert other time zone time to local time</h3>
+    Enter the original time zone (name or utc-offset) and time
+    in format "EST;00:00" :>
+
 {% endblock content %}
