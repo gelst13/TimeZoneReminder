@@ -138,9 +138,9 @@ LOGIN_REDIRECT_URL = 'timop'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'gelst13@mail.ru'
-EMAIL_HOST = 'smtp.mail.ru'
+DEFAULT_FROM_EMAIL = 'gelst13@rambler.ru'
+EMAIL_HOST = 'smtp.rambler.ru'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = Config.EMAIL_USER_M
-EMAIL_HOST_PASSWORD = Config.EXTERNAL_PASS_M
+EMAIL_HOST_USER = Config.EMAIL_USER_R
+EMAIL_HOST_PASSWORD = Config.EMAIL_PASS_R
