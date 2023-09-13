@@ -6,16 +6,19 @@
     {% if objects|length < 1 %}
     <h4>Your contact book is empty.</h4>
     {% else %}
-    <table>
+    <table border="1" style="width: 900px">
+        <thead>
         <tr>
-            <th>contact_name</th>
-            <th>zone_name</th>
-            <th>utc_offset</th>
-            <th>platform</th>
-            <th>comment</th>
-            <th>location</th>
-            <th>current time</th>
+            <th class="contact_name">contact_name</th>
+            <th class="zone_name">zone_name</th>
+            <th class="utc_offset">utc_offset</th>
+            <th class="platform">platform</th>
+            <th class="comment">comment</th>
+            <th class="location">location</th>
+            <th class="current time">current time</th>
          </tr>
+        </thead>
+        <tbody>
         {% for object in objects %}
         <tr>
             <td><h5><a class="article-title" href="{% url 'contact-detail' object.id %}"> {{ object.contact_name }} </a></h5></td>
@@ -28,6 +31,7 @@
 
         </tr>
         {% endfor %}
+        </tbody>
     </table>
     {% endif %}
     <br>
