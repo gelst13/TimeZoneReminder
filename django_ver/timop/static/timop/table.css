@@ -1,0 +1,13 @@
+table {
+  width: 900px;
+  border: 1px solid #000;
+}
+th.contact_name, th.zone_name, th.utc_offset, th.platform, th.location {
+  width: 10%
+}
+th.comment {
+  width: 30%;
+}
+th.current time {
+  width: 20%;
+}
