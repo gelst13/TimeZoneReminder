@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from .config import Config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,3 +136,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'timop'
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'gelst13@mail.ru'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = Config.EMAIL_USER_M
+EMAIL_HOST_PASSWORD = Config.EXTERNAL_PASS_M
