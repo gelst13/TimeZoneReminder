@@ -7,6 +7,8 @@
 
 - correct how "author's" image is displayed in post_detail.html
 
+- use users's local tz in timop
+
 ideas:
 - add comments to posts from logged-in users
 """
