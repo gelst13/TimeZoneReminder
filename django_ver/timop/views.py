@@ -13,32 +13,28 @@ def timop(request):
             data = request.POST.get('current_time')
             print(data)
             result = TimeKeeper().get_current_time(data)
-            context = {'result': result,
+            print(result)
+            context = {'result1': result,
                        'form': form}
-        return render(request,'timop/timop.html', context=context)
+        elif request.POST.get('convert_local_time'):
+            data = request.POST.get('convert_local_time').split(';')
+            print(data)
+            result = TimeKeeper().time_operation_2(data, 'y')
+            print(result)
+            context = {'result2': result,
+                       'form': form}
+        elif request.POST.get('convert_other_time'):
+            data = request.POST.get('convert_other_time').split(';')
+            print(data)
+            result = TimeKeeper().time_operation_2(data, 'n')
+            print(result)
+            context = {'result3': result,
+                       'form': form}
+
+        return render(request, 'timop/timop.html', context=context)
+
     context = {'form': form}
     return render(request, 'timop/timop.html', context=context)
-
-
-def time_operations(request):
-    if request.method == 'POST':
-        if request.form.get('time_data_1'):
-            data = request.form.get('time_data_1')
-            print(data)
-            result = TimeKeeper().get_current_time(data)
-            return f'current time in {data} time zone: {result}'
-        elif request.form.get('time_data_2'):  # format "EST;00:00"
-            data = request.form.get('time_data_2').split(';')
-            print(data)
-            result = TimeKeeper.time_operation_2(data, 'y')
-            return result
-        elif request.form.get('time_data_3'):  # format "EST;00:00"
-            data = request.form.get('time_data_3').split(';')
-            print(data)
-            result = TimeKeeper.time_operation_2(data, 'n')
-            return result
-
-    return render(request, 'timop/time_operations.html')
 
 
 def about(request):
