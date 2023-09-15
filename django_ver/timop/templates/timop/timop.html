@@ -1,6 +1,16 @@
 {% extends "timop/base.html" %}
 {% block content %}
-<h2>Current time in a time zone</h2>
+
+<div class="media-body">
+    <p class="border-bottom mb-4">
+{% if user.is_authenticated%}
+    {{ user.username }}, your local time zone: {{ user.profile.utc_offset }}GMT/UTC
+{% else %}
+    AnonymousUser, your local time zone: {{ local_offset }}GMT/UTC
+{% endif%}
+    </p>
+</div>
+<h2 class="article-metadata">Current time in a time zone</h2>
 <table style="width: 900px">
       <tr>
           <td> Enter the name of time zone or utc-offset:</td>
@@ -12,7 +22,7 @@
       </tr>
       <tr>
           <td colspan=2>
-              <form action="{% url 'timop' %}" method="POST">{% csrf_token %}
+              <form action="{% url 'timop-timop' %}" method="POST">{% csrf_token %}
                 {{ form.current_time }}
                 <button type="submit">Submit</button>
               </form>
@@ -21,12 +31,12 @@
 </table>
 
 <br>
-<h2>Convert time</h2>
+<h2 class="article-metadata">Convert time</h2>
 <h3>Convert local time to some other time zone -> </h3>
 <table style="width: 900px">
       <tr>
-          <td> Enter the destination time zone(name or utc-offset) and time
-          in format "EST;00:00" :</td>
+          <td> Enter time and the destination time zone(name or utc-offset)
+          in format "00:00;+4" :</td>
           <td>
               {% if result2 %}
                     {{ result2 }}
@@ -35,7 +45,7 @@
       </tr>
       <tr>
           <td colspan=2>
-              <form action="{% url 'timop' %}" method="POST">{% csrf_token %}
+              <form action="{% url 'timop-timop' %}" method="POST">{% csrf_token %}
                 {{ form.convert_local_time }}<button type="submit">Submit</button></form>
           </td>
       </tr>
@@ -45,8 +55,8 @@
 <table style="width: 900px">
       <tr>
           <td>
-              Enter the original time zone (name or utc-offset) and time
-              in format "EST;00:00" :
+              Enter time and the original time zone (name or utc-offset)
+              in format "00:00;+4" :
           </td>
           <td>
               {% if result3 %}
@@ -56,7 +66,7 @@
       </tr>
       <tr>
           <td colspan=2>
-              <form action="{% url 'timop' %}" method="POST">{% csrf_token %}
+              <form action="{% url 'timop-timop' %}" method="POST">{% csrf_token %}
                 {{ form.convert_other_time }}
                 <button type="submit">Submit</button>
               </form>

@@ -1,39 +1,60 @@
 from django.shortcuts import render, redirect
 from .utils import TimeKeeper
-from .forms import TimopForm1
+from .forms import TimopForm1, TimopForm2
+import requests
 
 
-# def timop(request):
-#     return render(request, 'timop/time_operations.html')
+def timez(request):
+    if request.user.is_authenticated:
+        # return redirect('timop-about')
+        return redirect('timop-timop')
+    else:
+        print(request.user.is_authenticated)
+        form = TimopForm2()
+        context = {'form': form}
+        if request.method == 'POST':
+            request.session['local_offset'] = request.POST.get('local_offset')
+            print(request.session['local_offset'])
+            return redirect('timop-timop')
+        return render(request, 'timop/timez.html', context)
+
+
 def timop(request):
+    if request.user.is_authenticated:
+        local_offset = request.user.profile.utc_offset
+        print(f'{request.user.username}` offset {local_offset}')
+    else:
+        local_offset = request.session['local_offset']
+        print(f"AnonymousUser, your offset {local_offset}")
     form = TimopForm1()
+    context = {'form': form,
+               'local_offset': local_offset}
+
     if request.method == 'POST':
         form = TimopForm1(request.POST)
         if request.POST.get('current_time'):
             data = request.POST.get('current_time')
-            print(data)
             result = TimeKeeper().get_current_time(data)
-            print(result)
             context = {'result1': result,
-                       'form': form}
-        elif request.POST.get('convert_local_time'):
-            data = request.POST.get('convert_local_time').split(';')
-            print(data)
-            result = TimeKeeper().time_operation_2(data, 'y')
-            print(result)
+                       'form': form,
+                       'local_offset': local_offset}
+        if request.POST.get('convert_local_time'):
+            # time_operation_2a(time_, tz_from, tz_to, from_local)
+            time, tz_to = request.POST.get('convert_local_time').split(';')
+            result = TimeKeeper().time_operation_2a(time, local_offset, tz_to, 'y')
             context = {'result2': result,
-                       'form': form}
+                       'form': form,
+                       'local_offset': local_offset}
         elif request.POST.get('convert_other_time'):
-            data = request.POST.get('convert_other_time').split(';')
-            print(data)
-            result = TimeKeeper().time_operation_2(data, 'n')
+            time, tz_from = request.POST.get('convert_other_time').split(';')
+            result = TimeKeeper().time_operation_2a(time, tz_from, local_offset, 'n')
             print(result)
             context = {'result3': result,
-                       'form': form}
+                       'form': form,
+                       'local_offset': local_offset}
 
         return render(request, 'timop/timop.html', context=context)
 
-    context = {'form': form}
     return render(request, 'timop/timop.html', context=context)
 
 

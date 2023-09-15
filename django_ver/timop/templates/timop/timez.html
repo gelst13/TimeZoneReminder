@@ -1,0 +1,8 @@
+{% extends "timop/base.html" %}
+{% block content %}
+<h2 class="article-metadata">AnonymousUser, please enter your local time zone' offset:</h2>
+<form action="{% url 'timop-timez' %}" method="POST">{% csrf_token %}
+{{ form.local_offset }}
+<button type="submit">Submit</button>
+</form>
+{% endblock content %}
