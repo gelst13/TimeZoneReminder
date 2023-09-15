@@ -19,8 +19,5 @@ class Post(models.Model):
         return f'{self.date_posted}  {self.title}'
 
     @property
-    def date_local(self):
-        # zone = timezone(timedelta(seconds=abs(time.timezone)))  # get local offset
-        # zone_info = float(datetime.now().astimezone().strftime('%z')) / 100
-        # return timezone.now().strftime('%d.%m.%Y %H:%M %z%Z')
+    def date_admin(self):
         return self.date_posted.astimezone(ZoneInfo("Europe/Moscow")).strftime('%d.%m.%Y %H:%M %z%Z')
