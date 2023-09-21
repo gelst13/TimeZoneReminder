@@ -10,13 +10,14 @@
 
 + add user's time zone to profile
 
-- correct how "author's" image is displayed in post_detail.html
++ correct how "author's" image is displayed in post_detail.html
 
-- use users's local tz in timop
-- change local tz for anonymous user:
++ use users's local tz in timop
++ change local tz for anonymous user:
 because in Django utility cannot grab local time correctly
 
-- display offset correctly as +00:30 or -02:00
+- display offset correctly as +00:30 or -02:30
+- or save offset correctly as string
 
 ideas:
 - add comments to posts from logged-in users
