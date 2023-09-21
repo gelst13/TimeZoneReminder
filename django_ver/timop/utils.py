@@ -101,12 +101,15 @@ class TimeKeeper:
         """ how much time will it be in ..2 hours?
         """
         # logging.info(f'***def calculate_time({time.strftime("%H:%M", time_obj)}, {time_interval})')
-        time0 = list(map(int, time.strftime("%H:%M", time_obj).split(':')))
+        print(time_obj.strftime('%H:%M'))
+        time0 = list(map(int, time_obj.strftime('%H:%M').split(':')))
+        print(time0)
         hours, minutes = time0[0], time0[1]
         hours2, minutes2 = hours + time_interval[0], minutes + time_interval[1]
         time2 = datetime.timedelta(hours=hours2, minutes=minutes2)
         # logging.debug(str(time2)[:5])
-        return str(time2)[:5]
+        return f"In {time_interval[0]} hours {time_interval[1]} minutes it'll be: {str(time2)[:5]}"
+        # return str(time2)[:5]
 
     @staticmethod
     def define_tzinfo(tz_data):
@@ -124,12 +127,10 @@ class TimeKeeper:
                 print(f'there are no {tz_data} time zone in Olsen database. Try again with offset')
 
     @staticmethod
-    def get_current_time(tz_data) -> str:
-        """convert current local time into another time zone"""
-        # logging.info('***def get_current_time(tz_data)')
-        # logging.debug(f'tz_data={tz_data}')
+    def get_current_time(tz_data):
+        """Return current local time in a time zone"""
         tz_ = TimeKeeper.define_tzinfo(tz_data)
-        return datetime.datetime.now(tz_).strftime('%d-%m-%Y %H:%M %z %Z')
+        return datetime.datetime.now(tz_)
 
     @staticmethod
     def date_constructor(zone_info, date: list, time0: list):
@@ -142,11 +143,16 @@ class TimeKeeper:
             return zone_info.localize(datetime.datetime(date[0], date[1], date[2], time0[0], time0[1]))
 
     @staticmethod
-    def time_operation_0(time_period: list) -> str:
+    def time_operation_0(time_period: list, tz_data) -> str:
         """0-display the time that will come after a certain time period"""
-        current_local_time = time.localtime()
-        print(f"In {time_period[0]} hours {time_period[1]} minutes it'll be:")
-        return TimeKeeper.calculate_time(current_local_time, time_period)
+        # current_local_time = time.localtime()
+        current_local_time = TimeKeeper.get_current_time(tz_data)
+        # print(f"In {time_period[0]} hours {time_period[1]} minutes it'll be:")
+        return TimeKeeper.calculate_time(current_local_time, list(map(int, time_period)))
+
+    @staticmethod
+    def time_operation_1(tz_data) -> str:
+        return TimeKeeper.get_current_time(tz_data).strftime('%d-%m-%Y %H:%M %z %Z')
 
     @staticmethod
     def time_operation_2a(time_, tz_from, tz_to, from_local):

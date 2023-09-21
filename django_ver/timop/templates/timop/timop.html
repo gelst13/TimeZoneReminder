@@ -15,6 +15,26 @@
       <tr>
           <td> Enter the name of time zone or utc-offset:</td>
           <td>
+              {% if result0 %}
+                    {{ result0 }}
+                  {% endif %}
+          </td>
+      </tr>
+      <tr>
+          <td colspan=2>
+              <form action="{% url 'timop-timop' %}" method="POST">{% csrf_token %}
+                {{ form.current_time }}
+                <button type="submit">Submit</button>
+              </form>
+          </td>
+      </tr>
+</table>
+
+<h2 class="article-metadata">Calculate the time (your local time) that will come after a certain time period</h2>
+<table style="width: 900px">
+      <tr>
+          <td> Enter time period in format "hh:mm" (e.g. 00:22) :</td>
+          <td>
               {% if result1 %}
                     {{ result1 }}
                   {% endif %}
@@ -23,7 +43,7 @@
       <tr>
           <td colspan=2>
               <form action="{% url 'timop-timop' %}" method="POST">{% csrf_token %}
-                {{ form.current_time }}
+                {{ form.calculate_time }}
                 <button type="submit">Submit</button>
               </form>
           </td>

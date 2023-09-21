@@ -34,20 +34,26 @@ def timop(request):
         form = TimopForm1(request.POST)
         if request.POST.get('current_time'):
             data = request.POST.get('current_time')
-            result = TimeKeeper().get_current_time(data)
+            result = TimeKeeper.time_operation_1(data)
+            context = {'result0': result,
+                       'form': form,
+                       'local_offset': local_offset}
+        elif request.POST.get('calculate_time'):
+            data = request.POST.get('calculate_time').split(':')
+            result = TimeKeeper.time_operation_0(data, local_offset)
             context = {'result1': result,
                        'form': form,
                        'local_offset': local_offset}
-        if request.POST.get('convert_local_time'):
+        elif request.POST.get('convert_local_time'):
             # time_operation_2a(time_, tz_from, tz_to, from_local)
             time, tz_to = request.POST.get('convert_local_time').split(';')
-            result = TimeKeeper().time_operation_2a(time, local_offset, tz_to, 'y')
+            result = TimeKeeper.time_operation_2a(time, local_offset, tz_to, 'y')
             context = {'result2': result,
                        'form': form,
                        'local_offset': local_offset}
         elif request.POST.get('convert_other_time'):
             time, tz_from = request.POST.get('convert_other_time').split(';')
-            result = TimeKeeper().time_operation_2a(time, tz_from, local_offset, 'n')
+            result = TimeKeeper.time_operation_2a(time, tz_from, local_offset, 'n')
             print(result)
             context = {'result3': result,
                        'form': form,
