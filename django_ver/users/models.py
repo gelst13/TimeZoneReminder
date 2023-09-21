@@ -34,7 +34,7 @@ class Contact(models.Model):
     platform = models.CharField(max_length=20)
     comment = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    zone_name = models.CharField(max_length=100)
+    zone_name = models.CharField(max_length=100, blank=True, null=True)
     utc_offset = models.FloatField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
