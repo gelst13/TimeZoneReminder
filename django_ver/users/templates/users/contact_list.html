@@ -10,11 +10,11 @@
         <thead>
         <tr>
             <th class="contact_name">contact_name</th>
+            <th class="location">location</th>
             <th class="zone_name">zone_name</th>
             <th class="utc_offset">utc_offset</th>
             <th class="platform">platform</th>
             <th class="comment">comment</th>
-            <th class="location">location</th>
             <th class="current time">current time</th>
          </tr>
         </thead>
@@ -22,11 +22,11 @@
         {% for object in objects %}
         <tr>
             <td><h5><a class="article-title" href="{% url 'contact-detail' object.id %}"> {{ object.contact_name }} </a></h5></td>
+            <td>{{ object.location }}</td>
             <td>{{ object.zone_name }}</td>
             <td>{{ object.utc_offset }}</td>
             <td>{{ object.platform }}</td>
             <td>{{ object.comment }}</td>
-            <td>{{ object.location }}</td>
             <td>{{ object.contact_time }}</td>
 
         </tr>
