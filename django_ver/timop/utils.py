@@ -113,9 +113,15 @@ class TimeKeeper:
 
     @staticmethod
     def define_tzinfo(tz_data):
-        try:  # define tzinfo from number:
+        try:  # define tzinfo from offset:
             # both options work:
-            tz_ = datetime.timezone(datetime.timedelta(hours=float(tz_data)))
+            # tz_ = datetime.timezone(datetime.timedelta(hours=float(tz_data)))
+            hours = int(tz_data[:3])
+            if len(tz_data) == 5:
+                minutes = int(tz_data[3:])
+            else:
+                minutes = 0
+            tz_ = datetime.timezone(datetime.timedelta(hours=hours, minutes=minutes))
             # tz_ = tzoffset(None, int(float(tz_data) * 3600))
             return tz_
         except ValueError:  # define tzinfo from name:

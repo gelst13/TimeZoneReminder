@@ -40,6 +40,7 @@ def timop(request):
                        'local_offset': local_offset}
         elif request.POST.get('calculate_time'):
             data = request.POST.get('calculate_time').split(':')
+
             result = TimeKeeper.time_operation_0(data, local_offset)
             context = {'result1': result,
                        'form': form,
