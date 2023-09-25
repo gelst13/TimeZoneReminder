@@ -77,7 +77,7 @@ class ContactDetailView(LoginRequiredMixin, DetailView):
 class ContactCreateView(LoginRequiredMixin, CreateView):
     model = Contact
     fields = ['contact_name', 'platform', 'comment', 'location',
-              'zone_name', 'utc_offset']
+              'zone_name', 'offset']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user  # take current logged in user
@@ -87,7 +87,7 @@ class ContactCreateView(LoginRequiredMixin, CreateView):
 class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Contact
     fields = ['contact_name', 'platform', 'comment', 'location',
-              'zone_name', 'utc_offset']
+              'zone_name', 'offset']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user  # take current logged in user
