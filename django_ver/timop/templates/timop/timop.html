@@ -13,7 +13,7 @@
 <h2 class="article-metadata">Current time in a time zone</h2>
 <table style="width: 900px">
       <tr>
-          <td> Enter the name of time zone or utc-offset:</td>
+          <td> Enter the name of time zone or utc-offset in format "+hh" or "-hhmm" (e.g."-01" or "+0230"):</td>
           <td>
               {% if result0 %}
                     {{ result0 }}
@@ -56,7 +56,7 @@
 <table style="width: 900px">
       <tr>
           <td> Enter time and the destination time zone(name or utc-offset)
-          in format "00:00;+4" :</td>
+          in format "00:00;+04" :</td>
           <td>
               {% if result2 %}
                     {{ result2 }}
@@ -76,7 +76,7 @@
       <tr>
           <td>
               Enter time and the original time zone (name or utc-offset)
-              in format "00:00;+4" :
+              in format "00:00;-02" or "00:00;+0230":
           </td>
           <td>
               {% if result3 %}

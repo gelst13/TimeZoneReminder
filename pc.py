@@ -33,4 +33,4 @@ else:
     minutes = '00'
 # print(hours, minutes)
 
-
+# in format "+hh" or "-hhmm" (e.g."-01" or "+0230")

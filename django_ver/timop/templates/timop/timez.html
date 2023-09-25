@@ -2,7 +2,7 @@
 {% block content %}
 <h2 class="article-metadata">AnonymousUser, please enter
     your local time zone' offset in format "+hh" or "-hhmm"
-    (e.g."-01" or "+0230":</h2>
+    (e.g."-01" or "+0230"):</h2>
 <form action="{% url 'timop-timez' %}" method="POST">{% csrf_token %}
 {{ form.local_offset }}
 <button type="submit">Submit</button>
