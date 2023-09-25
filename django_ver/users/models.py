@@ -8,7 +8,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    utc_offset = models.FloatField(blank=True, null=True)
+    # utc_offset = models.FloatField(blank=True, null=True)
     offset = models.CharField(max_length=5, blank=True, null=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Profile(models.Model):
 
     @property
     def user_local_time(self):
-        return utils.TimeKeeper.time_operation_1(self.utc_offset)
+        return utils.TimeKeeper.time_operation_1(self.offset)
 
 
 class Contact(models.Model):
@@ -36,7 +36,7 @@ class Contact(models.Model):
     comment = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     zone_name = models.CharField(max_length=100, blank=True, null=True)
-    utc_offset = models.FloatField()
+    # utc_offset = models.FloatField()
     offset = models.CharField(max_length=5, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -49,7 +49,7 @@ class Contact(models.Model):
 
     @property
     def contact_time(self):
-        if self.utc_offset:
-            return utils.TimeKeeper.time_operation_1(self.utc_offset)
+        if self.offset:
+            return utils.TimeKeeper.time_operation_1(self.offset)
         elif self.zone_name:
             return utils.TimeKeeper.time_operation_1(self.zone_name)

@@ -21,7 +21,7 @@ def timez(request):
 
 def timop(request):
     if request.user.is_authenticated:
-        local_offset = request.user.profile.utc_offset
+        local_offset = request.user.profile.offset
         print(f'{request.user.username}` offset {local_offset}')
     else:
         local_offset = request.session['local_offset']
