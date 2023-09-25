@@ -25,7 +25,7 @@ ideas:
 
 o = '-02'
 # tz_ = datetime.timezone(datetime.timedelta(hours=float(tz_data)))
-# 'in format '+hh' of '-hhmm'
+# 'in format '+hh' of '-hhmm' (e.g. +02 or -0230)
 if len(o) == 5:
     hours, minutes = o[:3], o[3:]
 else:
