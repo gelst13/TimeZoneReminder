@@ -9,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     utc_offset = models.FloatField(blank=True, null=True)
+    offset = models.CharField(max_length=5, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -36,6 +37,7 @@ class Contact(models.Model):
     location = models.CharField(max_length=100)
     zone_name = models.CharField(max_length=100, blank=True, null=True)
     utc_offset = models.FloatField()
+    offset = models.CharField(max_length=5, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __repr__(self):
