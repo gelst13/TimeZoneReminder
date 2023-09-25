@@ -1,5 +1,5 @@
 """
-- change Contact model: set zone_name to nullable=True
++ change Contact model: set zone_name to nullable=True
 
 - clean tzr_utils:
     -- make current existing functions smaller and clearer
@@ -21,3 +21,16 @@ because in Django utility cannot grab local time correctly
 ideas:
 - add comments to posts from logged-in users
 """
+import re
+
+
+o = '-02'
+# tz_ = datetime.timezone(datetime.timedelta(hours=float(tz_data)))
+# 'in format '+hh' of '-hhmm'
+if len(o) == 5:
+    hours, minutes = o[:3], o[3:]
+else:
+    hours = o
+    minutes = '00'
+print(hours, minutes)
+

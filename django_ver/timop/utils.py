@@ -128,7 +128,7 @@ class TimeKeeper:
 
     @staticmethod
     def get_current_time(tz_data):
-        """Return current local time in a time zone"""
+        """Return current local time in a time zone as datetime object"""
         tz_ = TimeKeeper.define_tzinfo(tz_data)
         return datetime.datetime.now(tz_)
 
@@ -143,6 +143,10 @@ class TimeKeeper:
             return zone_info.localize(datetime.datetime(date[0], date[1], date[2], time0[0], time0[1]))
 
     @staticmethod
+    def display_offset(offset: float) -> str:
+        pass
+
+    @staticmethod
     def time_operation_0(time_period: list, tz_data) -> str:
         """0-display the time that will come after a certain time period"""
         # current_local_time = time.localtime()
@@ -152,7 +156,8 @@ class TimeKeeper:
 
     @staticmethod
     def time_operation_1(tz_data) -> str:
-        return TimeKeeper.get_current_time(tz_data).strftime('%d-%m-%Y %H:%M %z %Z')
+        """Return current time in {tz_data} time zone as tring"""
+        return TimeKeeper.get_current_time(tz_data).strftime('%d-%m-%Y %H:%M %Z')
 
     @staticmethod
     def time_operation_2a(time_, tz_from, tz_to, from_local):
