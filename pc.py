@@ -21,7 +21,6 @@ because in Django utility cannot grab local time correctly
 ideas:
 - add comments to posts from logged-in users
 """
-import re
 
 
 o = '-02'
@@ -32,5 +31,6 @@ if len(o) == 5:
 else:
     hours = o
     minutes = '00'
-print(hours, minutes)
+# print(hours, minutes)
+
 
