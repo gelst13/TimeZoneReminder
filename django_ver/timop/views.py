@@ -20,6 +20,8 @@ def timez(request):
 
 
 def timop(request):
+    if not request.user.is_authenticated and not request.session.get('local_offset'):
+        return redirect('timop-timez')
     if request.user.is_authenticated:
         local_offset = request.user.profile.offset
         print(f'{request.user.username}` offset {local_offset}')
