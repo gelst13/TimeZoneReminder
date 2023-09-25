@@ -1,19 +1,22 @@
 {% extends "timop/base.html" %}
 {% block content %}
 <h1>TimeZ (Time Zone Reminder)</h1>
-<small class="text-muted">Origin: <a href="httsmalls://github.com/gelst13/TimeZoneReminder/tree/django-ver" > gelst13/   TimeZ/django-ver</a></small>
-<p>is an application, designed to:
-    <ul>
-    <li>keep information about user's contacts time zone,</li>
-    <li>display their current time,</li>
-    <li>and make several operations with time,</li>
-    </ul>
-based on user's local offset to UTC.</p>
-
-<p>In <a href="{% url 'timop-timop' %} ">Time operations</a> it's possible to use UTC offset in format '+hh' of '-hhmm' (e.g. +02 or -0230)
-or TZ identifier from Olson database
-(check <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a>)
+<table><tr><td>
+    <small class="text-muted">Origin: <a href="https://github.com/gelst13/TimeZoneReminder/tree/django-ver" > gelst13/   TimeZ/django-ver</a>
+    inspired by <a href="https://github.com/CoreyMSchafer/code_snippets/tree/master/Django_Blog">CoreyMSchafer's Django tutorial</a></small>
+    <p>is an application, designed to:
+        <ul>
+        <li>keep information about user's contacts time zone,</li>
+        <li>display their current time,</li>
+        <li>and make several operations with time,</li>
+        </ul>
+    based on user's local offset to UTC.
+    <br>
+    In <a href="{% url 'timop-timop' %} ">Time operations</a> it's possible to use UTC offset in format '+hh' of '-hhmm' (e.g. +02 or -0230)
+    or TZ identifier from Olson database
+    (check <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a>)
+    <br>
+    Registered user needs to save its local offset on <a href="{% url 'profile' %}">Profile</a> page.
+    </p>
+</td></tr></table>
 {% endblock content %}
-</p>
-
-

@@ -20,8 +20,13 @@ because in Django utility cannot grab local time correctly
 
 - after register -> login -> profile
 
-- KeyError at /timop/
++ KeyError at /timop/
 'local_offset' for anonimoususer without session from timez
+
+- in contacts gelst13 that cannot be deleted by non-staff?
+
+- TypeError at /timop/
+'NoneType' object is not subscriptable for logged in user with empty offset field
 
 ideas:
 - add comments to posts from logged-in users
