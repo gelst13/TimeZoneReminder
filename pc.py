@@ -16,7 +16,12 @@
 because in Django utility cannot grab local time correctly
 
 - display offset correctly as +00:30 or -02:30
-- or save offset correctly as string
++ or save offset correctly as string
+
+- after register -> login -> profile
+
+- KeyError at /timop/
+'local_offset' for anonimoususer without session from timez
 
 ideas:
 - add comments to posts from logged-in users
