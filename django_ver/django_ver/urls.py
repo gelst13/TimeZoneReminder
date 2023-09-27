@@ -32,7 +32,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view
          (template_name='users/logout.html'), name='logout'),
     path('profile/', user_views.profile, name='profile'),
-    # path('contacts/', user_views.contacts, name='contacts'),
+    path('contacts/<str:username>', user_views.ContactListView.as_view(), name='user-contacts'),
     path('contacts/', include('users.urls')),
     path('password-reset/',
          auth_views.PasswordResetView.as_view(

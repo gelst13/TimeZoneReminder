@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, ListView, DeleteView
@@ -55,8 +56,13 @@ def contacts(request):
 
 class ContactListView(ListView):
     model = Contact
+    template_name = 'users/contact_list.html'
     context_object_name = 'objects'
     ordering = ['contact_name']
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))  # kwargs - query params
+        return Contact.objects.filter(owner=user).order_by('contact_name')
 
 
 class ContactDetailView(LoginRequiredMixin, DetailView):

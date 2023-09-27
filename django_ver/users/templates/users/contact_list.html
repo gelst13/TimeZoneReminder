@@ -2,7 +2,7 @@
 {% block content %}
 
 <div>
-    <h2>Contact book</h2>
+    <h2>Contact book of {{ view.kwargs.username }}</h2>
     {% if objects|length < 1 %}
     <h4>Your contact book is empty.</h4>
     {% else %}

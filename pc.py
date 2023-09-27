@@ -15,15 +15,17 @@
 + change local tz for anonymous user:
 because in Django utility cannot grab local time correctly
 
-- display offset correctly as +00:30 or -02:30
+x display offset correctly as +00:30 or -02:30
 + or save offset correctly as string
 
 - after register -> login -> profile
+now after login -> timop
+register -> blog
 
 + KeyError at /timop/
 'local_offset' for anonimoususer without session from timez
 
-- in contacts gelst13 that cannot be deleted by non-staff?
++ show user's contacts only
 
 - TypeError at /timop/
 'NoneType' object is not subscriptable for logged in user with empty offset field
