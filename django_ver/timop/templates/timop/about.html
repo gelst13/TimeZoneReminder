@@ -6,8 +6,8 @@
     inspired by <a href="https://github.com/CoreyMSchafer/code_snippets/tree/master/Django_Blog">CoreyMSchafer's Django tutorial</a></small>
     <p>is an application, designed to:
         <ul>
-        <li>keep information about user's contacts time zone,</li>
-        <li>display their current time,</li>
+        <li>keep information about user's contacts time zones,</li>
+        <li>display contacts' current time,</li>
         <li>and make several operations with time,</li>
         </ul>
     based on user's local offset to UTC.
@@ -19,4 +19,8 @@
     Registered user needs to save its local offset on <a href="{% url 'profile' %}">Profile</a> page.
     </p>
 </td></tr></table>
+<br>
+The original "Time Zone Reminder" app was a CLI python script, then - Flask web application.
+This is the Django version, which has more functionality than the previous ones.
+<a href="{% url 'blog-home' %}">Blog</a> section tells the history of working on the app.
 {% endblock content %}
