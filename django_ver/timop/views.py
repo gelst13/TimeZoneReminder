@@ -23,6 +23,8 @@ def timop(request):
     if not request.user.is_authenticated and not request.session.get('local_offset'):
         return redirect('timop-timez')
     if request.user.is_authenticated:
+        if not request.user.profile.offset:
+            return render(request, 'timop/empty_offset_error.html')
         local_offset = request.user.profile.offset
         print(f'{request.user.username}` offset {local_offset}')
     else:

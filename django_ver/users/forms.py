@@ -25,4 +25,4 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'offset']
-        labels = {'offset': 'User`s local time as UTC offset in format "+hh" or "-hhmm" (e.g."-01" or "+0230")'}
+        labels = {'offset': 'Your time zone UTC offset in format "+hh" or "-hhmm" (e.g."-01" or "+0230")'}
