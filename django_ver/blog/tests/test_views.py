@@ -1,6 +1,6 @@
 import json
 from django.test import TestCase, Client
-from django.urls import reverse
+from django.urls import reverse, resolve
 from blog.models import Post
 
 
@@ -12,8 +12,9 @@ class TestViews(TestCase):
 
     # def test_post_detail_GET(self):
     #     response = self.client.get(self.post_detail_url)
+    #     print(self.post_detail_url)
     #     print(response.status_code)
-    #     print(response.url)
+    #     print(response)
     #     self.assertEquals(response.status_code, 200)
     #     self.assertTemplateUsed(response, 'blog/post_detail.html')
 
